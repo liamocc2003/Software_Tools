@@ -26,5 +26,15 @@ namespace test.Controllers
         {
             return View();
         }
+
+        public IActionResult addStrings()
+        {
+            LoginModel model = new LoginModel();
+            string username = model.Username;
+            string password = model.Password;
+
+            string total = username + password;
+            return View(total);
+        }
     }
 }

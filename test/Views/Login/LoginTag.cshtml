@@ -7,10 +7,11 @@
 
 <form asp-controller="Login" asp-action="LoginTag" method="post">
     <div>
-        Username: <input type="text" asp-for="Username" />
+        Username: <input type="text" id="username" asp-for="Username" />
     
-        Password: <input type="password" asp-for="Password" />
+        Password: <input type="password" id="password" asp-for="Password" />
 
-        <input type="submit" value="Login" />
+        <input type="submit" id="btn" value="Login" />
     </div>
 </form>
+<script src="~/js/login.js"></script>
