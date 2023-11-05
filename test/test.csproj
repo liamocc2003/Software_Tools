@@ -7,11 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <Compile Remove="Views\Order\**" />
+    <Content Remove="Views\Order\**" />
+    <EmbeddedResource Remove="Views\Order\**" />
+    <None Remove="Views\Order\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Order\" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
   </ItemGroup>
 
 </Project>
