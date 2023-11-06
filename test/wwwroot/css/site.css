@@ -13,7 +13,7 @@
 html, body {
     height: 100%;
     width: 100%;
-    margin: 0;
+    margin: 0px;
     font-family: 'Open Sans', Helvetica, sans-serif;
 }
 a, a:hover {
@@ -75,6 +75,7 @@ body {
         .sellables {
             display: flex;
             flex-direction: column;
+            width: 70%;
 
             h4{
                 padding-left: 4em;
@@ -84,6 +85,7 @@ body {
                 display: flex;
                 align-items: center;
                 flex-wrap: wrap;
+                width:100%;
                 margin: 0.5em;
                 border: 2px solid var(--nav-color);
 
@@ -131,6 +133,14 @@ body {
                         background: darken(var(--item-color), 10%);
                     }
                 }
+                table{
+                    margin: 1em;
+                    font-size: 16px;
+                    width: 100%;
+                }
+                th{
+                    margin: 1em;
+                }
             }
         }
 
@@ -142,7 +152,7 @@ body {
 
             .customer input {
                 height: 40px;
-                width: 45%;
+                width: 49%;
                 margin-top: 16px;
                 margin-bottom: 0px;
                 border: 1px solid #ccc;
@@ -219,6 +229,7 @@ body {
                 }
                 .total{
                     text-align: center;
+                    font-size: 18px;
                 }
             }
     }
@@ -244,6 +255,6 @@ body {
     }
     .backBtn {
         display: flex;
-        padding-left: 12em;
+        padding-left: 18em;
     }
 }
