@@ -1,4 +1,4 @@
-﻿@model PayBillModel;
+﻿@model test.Models.PayBillModel
 @{
     ViewData["Title"] = "PayBill";
 }
@@ -15,87 +15,23 @@
                 <table class="table table-hover">
                     <thead style="position: sticky; top: 0;">
                         <tr>
-                            <th scope="col">Type</th>
-                            <th scope="col">Item</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Price</th>
+                            <th scope="col">OrderID</th>
+                            <th scope="col">OrderPrice</th>
+                            <th scope="col">OrderStatus</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>f</td>
-                            <td>Pizza</td>
-                            <td>2</td>
-                            <td>$12.99</td>
-                        </tr>
-                        <tr>
-                            <td>b</td>
-                            <td>Soda</td>
-                            <td>1</td>
-                            <td>$2.50</td>
-                        </tr>
-                        <tr>
-                            <td>f</td>
-                            <td>Burger</td>
-                            <td>1</td>
-                            <td>$8.95</td>
-                        </tr>
-                        <tr>
-                            <td>b</td>
-                            <td>Coffee</td>
-                            <td>2</td>
-                            <td>$4.50</td>
-                        </tr>
-                        <tr>
-                            <td>f</td>
-                            <td>Spaghetti Bolognese</td>
-                            <td>1</td>
-                            <td>$14.99</td>
-                        </tr>
-                        <tr>
-                            <td>b</td>
-                            <td>Orange Juice</td>
-                            <td>1</td>
-                            <td>$3.99</td>
-                        </tr>
-                        <tr>
-                            <td>f</td>
-                            <td>Chicken Tacos</td>
-                            <td>2</td>
-                            <td>$10.50</td>
-                        </tr>
-                        <tr>
-                            <td>b</td>
-                            <td>Iced Tea</td>
-                            <td>1</td>
-                            <td>$2.25</td>
-                        </tr>
-                        <tr>
-                            <td>f</td>
-                            <td>Caesar Salad</td>
-                            <td>1</td>
-                            <td>$9.99</td>
-                        </tr>
-                        <tr>
-                            <td>b</td>
-                            <td>Lemonade</td>
-                            <td>1</td>
-                            <td>$2.99</td>
-                        </tr>
-                        <tr>
-                            <td>f</td>
-                            <td>Steak with Potatoes</td>
-                            <td>1</td>
-                            <td>$22.95</td>
-                        </tr>
-                        <tr>
-                            <td>b</td>
-                            <td>Milkshake</td>
-                            <td>1</td>
-                            <td>$4.50</td>
-                        </tr>
+                            @foreach(var item in Model.ListOrderDetails)
+                            {
+                            <tr>
+                                <td>@item.OrderId</td>
+                                <td>@item.OrderPrice</td>
+                                <td>@item.OrderStatus</td>
+                            </tr>
+                            }
                     </tbody>
                 </table>
+
                </div>
             <div class="form-group">
                 <label class="form-label mt-4"></label>
@@ -107,8 +43,9 @@
                 </div>
             </div>
             <div class="btn-group m-3 w-100 m-3">
+                <!--If Pay Button is clicked assign availibility to unavailible-->
                 <button type="button" class="btn btn-danger">Back</button>
-                <button type="button" class="btn btn-success">Pay</button>
+                <button type="button" class="btn btn-success" href="/PayBill/Pay?orderId=">Pay</button>
             </div>
         </div>
     </div>
