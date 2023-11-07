@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using test.Models; 
 using System.Collections.Generic;
+using System.Data;
 
 namespace test.Controllers
 {
@@ -11,37 +12,30 @@ namespace test.Controllers
         {
             var model = new PayBillModel();
 
-            try
             {
-                string connectionString = "Data Source=restaurantdatabaseserver.database.windows.net;Initial Catalog=restaurantdb;Persist Security Info=True;User ID=sqladmin;Password=***********";
+                string connectionString = "Data Source=restaurantdatabaseserver.database.windows.net;Initial Catalog=restaurantdb;Persist Security Info=True;User ID=sqladmin;Password=tqxyP7*9vgw4";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT OrderID, OrderPrice, OrderStatus FROM ORDERS";
+                    string sql = "SELECT ORDERID, OrderPrice, OrderStatus FROM ORDERS";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                OrderDetails orderDetails = new OrderDetails
-                                {
-                                    OrderId = reader.GetInt32(0).ToString(),
-                                    OrderPrice = reader.GetDecimal(1).ToString(), // Assuming orderPrice is a decimal
-                                    OrderStatus = reader.GetString(2) // Assuming orderStatus is a string
-                                };
+                                OrderDetails orderDetails = new OrderDetails();
+
+                                orderDetails.orderId = "" + reader.GetDecimal(0);
+                                orderDetails.orderPrice = "" + reader.GetDecimal(1);
+                                orderDetails.orderStatus = reader.GetString(2);
 
                                 model.ListOrderDetails.Add(orderDetails);
                             }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                // Ideally, log this exception with a logging framework.
-                Console.WriteLine("Exception: " + ex.ToString());
             }
 
             // Pass the list to the view as a model.
@@ -51,8 +45,8 @@ namespace test.Controllers
 
     public class OrderDetails
     {
-        public string? OrderId { get; set; }
-        public string? OrderPrice { get; set; }
-        public string? OrderStatus { get; set; }
+        public string orderId;
+        public string orderPrice;
+        public string orderStatus;
     }
 }

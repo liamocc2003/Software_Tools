@@ -1,4 +1,5 @@
-﻿@model test.Models.PayBillModel
+﻿@model PayBillModel;
+@using test.Controllers;
 @{
     ViewData["Title"] = "PayBill";
 }
@@ -24,9 +25,9 @@
                             @foreach(var item in Model.ListOrderDetails)
                             {
                             <tr>
-                                <td>@item.OrderId</td>
-                                <td>@item.OrderPrice</td>
-                                <td>@item.OrderStatus</td>
+                                <td>@item.orderId</td>
+                                <td>@item.orderPrice</td>
+                                <td>@item.orderStatus</td>
                             </tr>
                             }
                     </tbody>
