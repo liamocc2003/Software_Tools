@@ -2,6 +2,7 @@
 @using test.Controllers;
 @{
     ViewData["Title"] = "PayBill";
+    decimal totalPrice = 0;
 }
 <link rel="stylesheet" type="text/css" href="css/site.css">
 
@@ -16,18 +17,22 @@
                 <table class="table table-hover">
                     <thead style="position: sticky; top: 0;">
                         <tr>
-                            <th scope="col">OrderID</th>
-                            <th scope="col">OrderPrice</th>
-                            <th scope="col">OrderStatus</th>
+                            
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Item Type</th>
+                            <th scope="col">Item Price</th>
                         </tr>
                     </thead>
                     <tbody>
                             @foreach(var item in Model.ListOrderDetails)
                             {
+                            totalPrice += Convert.ToDecimal(item.itemPrice);
                             <tr>
                                 <td>@item.orderId</td>
-                                <td>@item.orderPrice</td>
-                                <td>@item.orderStatus</td>
+                                <td>@item.itemName</td>
+                                <td>@item.itemType</td>
+                                <td>@item.itemPrice</td>
                             </tr>
                             }
                     </tbody>
@@ -39,7 +44,7 @@
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <span class="input-group-text">Total</span>
-                        <span class="input-group-text">$500.00</span>
+                        <span class="input-group-text">$@totalPrice</span>
                     </div>
                 </div>
             </div>

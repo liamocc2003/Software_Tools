@@ -18,7 +18,7 @@ namespace test.Controllers
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT ORDERID, OrderPrice, OrderStatus FROM ORDERS";
+                    string sql = "SELECT orderItem.OrderID, menuItem.Name, menuItem.Type, menuItem.Price FROM OrderItems orderItem INNER JOIN MenuItems menuItem ON orderItem.ItemID = menuItem.ItemID WHERE orderItem.OrderID = 2;";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -28,8 +28,9 @@ namespace test.Controllers
                                 OrderDetails orderDetails = new OrderDetails();
 
                                 orderDetails.orderId = "" + reader.GetDecimal(0);
-                                orderDetails.orderPrice = "" + reader.GetDecimal(1);
-                                orderDetails.orderStatus = reader.GetString(2);
+                                orderDetails.itemName = "" + reader.GetString(1);
+                                orderDetails.itemType = "" + reader.GetString(2);
+                                orderDetails.itemPrice = "" + reader.GetDecimal(3);
 
                                 model.ListOrderDetails.Add(orderDetails);
                             }
@@ -46,7 +47,8 @@ namespace test.Controllers
     public class OrderDetails
     {
         public string orderId;
-        public string orderPrice;
-        public string orderStatus;
+        public string itemName;
+        public string itemType;
+        public string itemPrice;
     }
 }
