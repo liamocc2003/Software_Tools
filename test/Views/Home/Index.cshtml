@@ -3,25 +3,42 @@
 }
 <form class="enterPin">
     <div class="search-bar">
-        <input class="form-control me-sm-2" type="search" placeholder="Enter Pin">
+        <input id="searchInput" class="form-control me-sm-2" type="search" placeholder="Enter Pin">
         <button class="btn btn-secondary" type="submit">Enter</button>
     </div>
 </form>
 
 <div class="pin">
-    <button type="button" class="btn btn-primary btn-lg">1</button>
-    <button type="button" class="btn btn-primary btn-lg">2</button>
-    <button type="button" class="btn btn-primary btn-lg">3</button>
+    <button type="button" class="btn btn-primary btn-lg" data-value="1">1</button>
+    <button type="button" class="btn btn-primary btn-lg" data-value="2">2</button>
+    <button type="button" class="btn btn-primary btn-lg" data-value="3">3</button>
     <br />
-    <button type="button" class="btn btn-primary btn-lg">4</button>
-    <button type="button" class="btn btn-primary btn-lg">5</button>
-    <button type="button" class="btn btn-primary btn-lg">6</button>
+    <button type="button" class="btn btn-primary btn-lg" data-value="4">4</button>
+    <button type="button" class="btn btn-primary btn-lg" data-value="5">5</button>
+    <button type="button" class="btn btn-primary btn-lg" data-value="6">6</button>
     <br />
-    <button type="button" class="btn btn-primary btn-lg">7</button>
-    <button type="button" class="btn btn-primary btn-lg">8</button>
-    <button type="button" class="btn btn-primary btn-lg">9</button>
+    <button type="button" class="btn btn-primary btn-lg" data-value="7">7</button>
+    <button type="button" class="btn btn-primary btn-lg" data-value="8">8</button>
+    <button type="button" class="btn btn-primary btn-lg" data-value="9">9</button>
     <br />
     <div class="btn0">
-    <button type="button" class="btn btn-primary btn-lg">0</button>
+    <button type="button" class="btn btn-primary btn-lg" data-value="0">0</button>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".btn.btn-primary.btn-lg");
+        const searchInput = document.getElementById("searchInput");
+
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const value = button.getAttribute("data-value");
+                if (value !== null) {
+                    if (searchInput.value.length < 3) {
+                        searchInput.value += value;
+                    }
+                }
+            });
+        });
+    });
+</script>
