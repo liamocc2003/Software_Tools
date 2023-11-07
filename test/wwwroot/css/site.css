@@ -17,8 +17,42 @@ body {
     position: fixed;
     bottom: 10%;
 }
-.pin .btn {
-    margin:0.5%;
-    width: 30%;
-    height: 100px;
+.pin {
+    height: 100vh;
+
 }
+
+    .pin .btn {
+        width: 30%;
+        height: 100px;
+        margin: 0.5%;
+    }
+
+    .pin .btn0 {
+       margin-left:31.5%;
+       margin-right:-31%;
+    }
+
+.enterPin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.form-control {
+    width:500px; 
+    height: 80px; 
+    margin-right: 10px; 
+}
+
+.btn-secondary {
+    flex-shrink: 0;
+    height:80px;
+}
+        
