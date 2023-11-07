@@ -98,6 +98,16 @@
                                     </td>
                                     <td>8.5</td>
                                 </tr>
+                                @foreach (var item in Model.ListOrderDetails)
+                                {
+                                    totalPrice += Convert.ToDecimal(item.itemPrice);
+                                    <tr>
+                                        <td>@item.orderId</td>
+                                        <td>@item.itemName</td>
+                                        <td>@item.itemType</td>
+                                        <td>@item.itemPrice</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
