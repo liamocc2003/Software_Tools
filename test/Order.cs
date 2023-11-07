@@ -74,12 +74,12 @@ namespace test
         public void AddtoOrder()
         {
             //connect to database and do update query on Order with matching id
-            string connectionString = "Data Source=restaurantdatabaseserver.database.windows.net;Initial Catalog=restaurantdb;Persist Security Info=True;User ID=sqladmin;Password=tqxyP7*9vgw4";
+            string connectionString = "Server=tcp:restaurantdatabaseserver.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string sql = "SELECT orderItem.OrderID, menuItem.Name, menuItem.Type, menuItem.Price FROM OrderItems orderItem INNER JOIN MenuItems menuItem ON orderItem.ItemID = menuItem.ItemID WHERE orderItem.OrderID = 2;";
+                string sql = "";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -101,7 +101,7 @@ namespace test
         public static DataSet getOrderDetails()
         {
             //connect to database and find order from id, pull needed data into DataSet and return DataSet
-            string connectionString = "Data Source=restaurantdatabaseserver.database.windows.net;Initial Catalog=restaurantdb;Persist Security Info=True;User ID=sqladmin;Password=tqxyP7*9vgw4";
+            string connectionString = "Server=tcp:restaurantdatabaseserver.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

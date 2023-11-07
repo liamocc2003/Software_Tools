@@ -1,6 +1,7 @@
 ﻿@model EditOrdersModel;
 @{
     ViewData["Title"] = "EditOrders";
+    float totalPrice = 0;
 }
 <link rel="stylesheet" type="text/css" href="css/site.css">
 
@@ -61,7 +62,6 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Description</th>
-                                    <th>Availability</th>
                                     <th>Price(€)</th>
                                 </tr>
                             </thead>
@@ -69,45 +69,23 @@
                                 <tr>
                                     <td>Vodka</td>
                                     <td>This is a vodka</td>
-                                    <td>
-                                        <span class="label label-success">A</span>
-                                    </td>
-                                    <td>5</td>
+                                    <td>5.00</td>
                                 </tr>
                                 <tr>
                                     <td>Bulmers</td>
                                     <td>This is a bulmers cider</td>
-                                    <td>
-                                        <span class="label label-important">N</span>
-                                    </td>
                                     <td>0.25</td>
                                 </tr>
                                 <tr>
                                     <td>Guiness</td>
                                     <td>This is a pint of Guniness</td>
-                                    <td>
-                                        <span class="label">A</span>
-                                    </td>
-                                    <td>10</td>
+                                    <td>10.00</td>
                                 </tr>
                                 <tr>
                                     <td>Pina Colada</td>
                                     <td>This is a Pina Colada cocktail</td>
-                                    <td>
-                                        <span class="label label-warning">R</span>
-                                    </td>
-                                    <td>8.5</td>
+                                    <td>8.50</td>
                                 </tr>
-                                @foreach (var item in Model.ListOrderDetails)
-                                {
-                                    totalPrice += Convert.ToDecimal(item.itemPrice);
-                                    <tr>
-                                        <td>@item.orderId</td>
-                                        <td>@item.itemName</td>
-                                        <td>@item.itemType</td>
-                                        <td>@item.itemPrice</td>
-                                    </tr>
-                                }
                             </tbody>
                         </table>
                     </div>
