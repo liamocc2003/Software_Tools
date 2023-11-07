@@ -2,11 +2,6 @@ html {
   font-size: 14px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
 
 html {
   position: relative;
@@ -15,4 +10,10 @@ html {
 
 body {
   margin-bottom: 60px;
+  width:100%;
+ 
+}
+.btm-btns {
+    position: fixed;
+    bottom: 10%;
 }
