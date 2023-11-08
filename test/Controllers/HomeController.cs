@@ -51,10 +51,8 @@ namespace test.Controllers
                             {
                                 OrderDetails orderDetails = new OrderDetails();
 
-                                orderDetails.orderId = "" + reader.GetDecimal(0);
-                                orderDetails.itemName = "" + reader.GetString(1);
-                                orderDetails.itemType = "" + reader.GetString(2);
-                                orderDetails.itemPrice = "" + reader.GetDecimal(3);
+                                orderDetails.itemName = "" + reader.GetString(0);
+                                orderDetails.itemPrice = "" + reader.GetString(1);
 
                                 model.ListOrderDetails.Add(orderDetails);
                             }
@@ -76,9 +74,7 @@ namespace test.Controllers
 
     public class OrderDetails
     {
-    public string orderId;
-    public string itemName;
-    public string itemType;
-    public string itemPrice;
+    public string itemName ="";
+    public string itemPrice = "";
 }
 
