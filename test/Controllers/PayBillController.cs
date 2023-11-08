@@ -44,6 +44,35 @@ namespace test.Controllers
             // Pass the list to the view as a model.
             return View(model);
         }
+        public IActionResult StatusPaid(int orderId)
+        {
+            string connectionString = "Server=tcp:restaurantdatabaseserver.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string sql = "UPDATE Orders SET OrderStatus = 'U' WHERE OrderID = @OrderId";
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    // Use parameterized queries to prevent SQL injection.
+                    command.Parameters.AddWithValue("@OrderId", orderId);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine("Bill paid successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Bill payment unsuccessful");
+                    }
+                }
+            }
+
+            // Redirect to another view, or return a success message, etc.
+            // For now, we'll just redirect back to the PayBill view.
+            return RedirectToAction("PayBill");
+        }
     }
 
     public class OrderDetails
@@ -52,6 +81,9 @@ namespace test.Controllers
         public string itemType;
         public string orderItemQuantity;
         public string itemPrice;
-
     }
+
+
+
+
 }
