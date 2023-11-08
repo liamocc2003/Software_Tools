@@ -13,7 +13,7 @@
             <h3>Pay Bill</h3>
         </div>
         <div class="card-body w-100 p-0 d-flex flex-column align-items-center">
-            <div class="table-container" style="max-height: 50vh; overflow-y: auto; width:100%">
+            <div class="table-container" style="max-height: 60vh; overflow-y: auto; width:100%">
                 <table class="table table-hover">
                     <thead style="position: sticky; top: 0;">
                         <tr>
@@ -36,6 +36,7 @@
                         }
                     </tbody>
                 </table>
+
                </div>
             <div class="form-group">
                 <label class="form-label mt-4"></label>
@@ -46,11 +47,10 @@
                     </div>
                 </div>
             </div>
-            <div style="width:60%">
-                <div class="btn-group m-3 w-100 m-3">
-                    <button type="button" class="btn btn-danger">Back</button>
-                    <button type="button" class="btn btn-success">Pay</button>
-                </div>
+            <div class="btn-group m-3 w-100 m-3">
+                <!--If Pay Button is clicked assign availibility to unavailible-->
+                <button type="button" class="btn btn-danger">Back</button>
+                <button type="button" class="btn btn-success" href="/PayBill/Pay?orderId=">Pay</button>
             </div>
         </div>
     </div>
