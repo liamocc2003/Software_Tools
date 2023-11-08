@@ -14,6 +14,7 @@ namespace test.Models
         public CreateOrder()
         {
             ListOrderDetails = new List<OrderDetails>();
+            Console.WriteLine("I am working");
         }
     }
 } 

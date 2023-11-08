@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using test.Models;
-using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 
 namespace test.Controllers
@@ -31,30 +31,34 @@ namespace test.Controllers
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
 
+        [HttpGet]
             public IActionResult RetrieveItems()
 {
-    var model = new List<CreateOrder>();
+    var model = new CreateOrder();
 
-    string connectionString = "YourConnectionStringHere";
+    string connectionString = "Server=tcp:restaurantdatabaseserver.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
     using (SqlConnection connection = new SqlConnection(connectionString))
     {
         connection.Open();
-        string sql = "SELECT Name, Price FROM MenuItems";
+        string sql = "SELECT ItemName, ItemPrice FROM MenuItems";
         using (SqlCommand command = new SqlCommand(sql, connection))
         {
             try
             {
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        var orderDetails = new CreateOrder();
-                        orderDetails.itemName = reader.GetString(0);
-                        orderDetails.itemPrice = reader.GetDecimal(1).ToString();
-                        model.Add(orderDetails);
-                        Console.WriteLine(orderDetails.itemName);
-                    }
-                }
+                            while (reader.Read())
+                            {
+                                OrderDetails orderDetails = new OrderDetails();
+
+                                orderDetails.orderId = "" + reader.GetDecimal(0);
+                                orderDetails.itemName = "" + reader.GetString(1);
+                                orderDetails.itemType = "" + reader.GetString(2);
+                                orderDetails.itemPrice = "" + reader.GetDecimal(3);
+
+                                model.ListOrderDetails.Add(orderDetails);
+                            }
+                        }
             }
             catch (Exception ex)
             {
@@ -64,7 +68,7 @@ namespace test.Controllers
     }
 
     // Pass the List of CreateOrder to the view with the menu items.
-    return View("Index", model);
+    return View(model);
 }
 
         }  
@@ -72,7 +76,9 @@ namespace test.Controllers
 
     public class OrderDetails
     {
-        public string itemName;
-        public string itemPrice;
-    }
+    public string orderId;
+    public string itemName;
+    public string itemType;
+    public string itemPrice;
+}
 

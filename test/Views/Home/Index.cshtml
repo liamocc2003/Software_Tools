@@ -1,5 +1,5 @@
-﻿@model List<CreateOrder>
-
+﻿@model CreateOrder;
+@using test.Controllers;
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -18,13 +18,12 @@
         </div>
         <div class="item-group-wrapper">
             <div class="item">
-                @if (Model != null)
-                {
-                    @foreach (var orderDetails in Model)
+                
+                    @foreach (var orderDetails in Model.ListOrderDetails)
                     {
                         <a href="#" class="item" data-item="@orderDetails.itemName" data-price="@orderDetails.itemPrice">@orderDetails.itemName</a>
                     }
-                }
+                
             </div>
         </div>
     </div>
