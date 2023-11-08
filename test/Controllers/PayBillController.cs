@@ -18,7 +18,7 @@ namespace test.Controllers
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT orderItem.OrderID, menuItem.ItemName, menuItem.ItemType, menuItem.ItemPrice FROM OrderItems orderItem INNER JOIN MenuItems menuItem ON orderItem.ItemID = menuItem.ItemID WHERE orderItem.OrderID = 2;";
+                    string sql = "SELECT menuitem.ItemName, orderitem.OrderQuantity, menuitem.ItemPrice \r\nFROM OrderItems orderitem\r\nINNER JOIN MenuItems menuitem ON orderitem.ItemID = menuitem.ItemID\r\nWHERE orderitem.OrderID = 2;";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -27,10 +27,11 @@ namespace test.Controllers
                             {
                                 OrderDetails orderDetails = new OrderDetails();
 
-                                orderDetails.orderId = "" + reader.GetDecimal(0);
-                                orderDetails.itemName = "" + reader.GetString(1);
-                                orderDetails.itemType = "" + reader.GetString(2);
-                                orderDetails.itemPrice = "" + reader.GetDecimal(3);
+                                
+                                orderDetails.itemName = "" + reader.GetString(0);
+                                orderDetails.orderItemQuantity = "" + reader.GetDecimal(1);
+                                orderDetails.itemPrice = "" + reader.GetDecimal(2);
+                                
 
                                 model.ListOrderDetails.Add(orderDetails);
                             }
@@ -38,17 +39,43 @@ namespace test.Controllers
                     }
                 }
             }
-
-            // Pass the list to the view as a model.
             return View(model);
+        }
+        public IActionResult StatusPaid(int orderId)
+        {
+            string connectionString = "Server=tcp:restaurantdatabaseserver.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string sql = "UPDATE Orders SET OrderStatus = 'U' WHERE OrderID = @OrderId";
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@OrderId", orderId);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine("Bill paid successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Bill payment unsuccessful");
+                    }
+                }
+            }
+            return RedirectToAction("Order", "Order");
         }
     }
 
     public class OrderDetails
     {
-        public string orderId;
         public string itemName;
-        public string itemType;
+        public string orderItemQuantity;
         public string itemPrice;
     }
+
+
+
+
 }

@@ -8,50 +8,57 @@
 
 <br>
 <div class="container d-flex justify-content-center align-items-center">
-    <div class="card text-white bg-dark col-12 col-md-10 align-items-center">
-        <div class="card-header">
-            <h3>Pay Bill</h3>
-        </div>
-        <div class="card-body w-100 p-0 d-flex flex-column align-items-center">
-            <div class="table-container" style="max-height: 60vh; overflow-y: auto; width:100%">
-                <table class="table table-hover">
-                    <thead style="position: sticky; top: 0;">
-                        <tr>
-                            <th scope="col">OrderID</th>
-                            <th scope="col">Item</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.ListOrderDetails)
-                        {
-                            totalPrice += Convert.ToDecimal(item.itemPrice);
-                            <tr>
-                                <td>@item.orderId</td>
-                                <td>@item.itemName</td>
-                                <td>@item.itemType</td>
-                                <td>@item.itemPrice</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-               </div>
-            <div class="form-group">
-                <label class="form-label mt-4"></label>
-                <div class="form-group">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Total</span>
-                        <span class="input-group-text">$@totalPrice</span>
+    <div class="card text-white bg-primary col-12 col-md-10 align-items-center">
+        
+        <div class="row g-0 w-100 p-3">
+                <div class="col-lg-9 d-flex align-items-center">
+                    <div class="card-body w-100 p-0 d-flex flex-column align-items-center">
+                        <div class="table-container" style="height:50vh; background-color:lightgrey; overflow-y: auto; width:100%; border-radius:.375rem">
+                            <table class="table table-hover">
+                                <thead style="position: sticky; top: 0;">
+                                    <tr>
+                            
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">UnitPrice</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ListOrderDetails)
+                                    {
+                                        totalPrice += (Convert.ToDecimal(item.itemPrice) * Convert.ToDecimal(item.orderItemQuantity));
+                                        <tr>
+                                            <td>@item.itemName</td>
+                                            <td>@item.orderItemQuantity</td>
+                                            <td>@item.itemPrice</td>
+                                
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="btn-group m-3 w-100 m-3">
-                <!--If Pay Button is clicked assign availibility to unavailible-->
-                <button type="button" class="btn btn-danger"><a class="nav-link" asp-area="" asp-controller="Order" asp-action="Order">Back</a></button>
-                <button type="button" class="btn btn-success" href="/PayBill/Pay?orderId=">Pay</button>
-            </div>
+                <div class="col-lg-3 d-flex align-items-center justify-content-center flex-column p-3">
+                    <h2>Bill</h2>
+                    <div class="form-group">
+                        <label class="form-label mt-4"></label>
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Total</span>
+                                <span class="input-group-text">€@totalPrice</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-group m-3 w-100 m-3">
+                        <!--If Pay Button is clicked assign availibility to unavailible-->
+                        <form class="w-100 d-flex flex-row" action="/PayBill/StatusPaid" method="post">
+                            <button type="button" class="btn btn-danger w-100"><a asp-area="" asp-controller="Order" asp-action="Order">Back</a></button>
+                            <input type="hidden" name="orderId" value="3" />
+                            <button type="submit" class="btn btn-success w-100">Pay</button>
+                        </form>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
