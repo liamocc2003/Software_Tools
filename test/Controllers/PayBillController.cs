@@ -18,7 +18,7 @@ namespace test.Controllers
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT menuitem.ItemName, menuitem.ItemType, orderitem.OrderQuantity, menuitem.ItemPrice \r\nFROM OrderItems orderitem\r\nINNER JOIN MenuItems menuitem ON orderitem.ItemID = menuitem.ItemID\r\nWHERE orderitem.OrderID = 2;";
+                    string sql = "SELECT menuitem.ItemName, orderitem.OrderQuantity, menuitem.ItemPrice \r\nFROM OrderItems orderitem\r\nINNER JOIN MenuItems menuitem ON orderitem.ItemID = menuitem.ItemID\r\nWHERE orderitem.OrderID = 2;";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -29,9 +29,8 @@ namespace test.Controllers
 
                                 
                                 orderDetails.itemName = "" + reader.GetString(0);
-                                orderDetails.itemType = "" + reader.GetString(1);
-                                orderDetails.orderItemQuantity = "" + reader.GetDecimal(2);
-                                orderDetails.itemPrice = "" + reader.GetDecimal(3);
+                                orderDetails.orderItemQuantity = "" + reader.GetDecimal(1);
+                                orderDetails.itemPrice = "" + reader.GetDecimal(2);
                                 
 
                                 model.ListOrderDetails.Add(orderDetails);
@@ -40,8 +39,6 @@ namespace test.Controllers
                     }
                 }
             }
-
-            // Pass the list to the view as a model.
             return View(model);
         }
         public IActionResult StatusPaid(int orderId)
@@ -54,7 +51,6 @@ namespace test.Controllers
                 string sql = "UPDATE Orders SET OrderStatus = 'U' WHERE OrderID = @OrderId";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
-                    // Use parameterized queries to prevent SQL injection.
                     command.Parameters.AddWithValue("@OrderId", orderId);
 
                     int rowsAffected = command.ExecuteNonQuery();
@@ -68,17 +64,13 @@ namespace test.Controllers
                     }
                 }
             }
-
-            // Redirect to another view, or return a success message, etc.
-            // For now, we'll just redirect back to the PayBill view.
-            return RedirectToAction("PayBill");
+            return RedirectToAction("Order", "Order");
         }
     }
 
     public class OrderDetails
     {
         public string itemName;
-        public string itemType;
         public string orderItemQuantity;
         public string itemPrice;
     }
