@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
-using test.Models; 
+using test.Models;
 using System.Collections.Generic;
 using System.Data;
 
@@ -51,4 +51,3 @@ namespace test.Controllers
         public string itemType;
         public string itemPrice;
     }
-}
