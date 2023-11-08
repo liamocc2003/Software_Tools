@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace test
 {
-    public class Order
+    public class Orders
     {
         private int OrderId;
         private int OrderTableNo;
@@ -12,7 +12,7 @@ namespace test
         private double OrderPrice;
         private char OrderStatus;
 
-        public Order() {
+        public Orders() {
             this.OrderId = 0;
             this.OrderTableNo = 0;
             this.OrderDate = DateTime.Now;
@@ -20,7 +20,7 @@ namespace test
             this.OrderStatus = 'Y';
         }
 
-        public Order(int orderId, int orderTableNo, DateTime orderDate, double orderPrice, char orderStatus)
+        public Orders(int orderId, int orderTableNo, DateTime orderDate, double orderPrice, char orderStatus)
         {
             this.OrderId = orderId;
             this.OrderTableNo = orderTableNo;
