@@ -1,0 +1,117 @@
+﻿@model PayBillModel;
+@{
+    ViewData["Title"] = "PayBill";
+}
+<link rel="stylesheet" type="text/css" href="css/site.css">
+
+<br>
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="card text-white bg-dark col-12 col-md-10 align-items-center">
+        <div class="card-header">
+            <h3>Pay Bill</h3>
+        </div>
+        <div class="card-body w-100 p-0 d-flex flex-column align-items-center">
+            <div class="table-container" style="max-height: 50vh; overflow-y: auto; width:100%">
+                <table class="table table-hover">
+                    <thead style="position: sticky; top: 0;">
+                        <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>f</td>
+                            <td>Pizza</td>
+                            <td>2</td>
+                            <td>$12.99</td>
+                        </tr>
+                        <tr>
+                            <td>b</td>
+                            <td>Soda</td>
+                            <td>1</td>
+                            <td>$2.50</td>
+                        </tr>
+                        <tr>
+                            <td>f</td>
+                            <td>Burger</td>
+                            <td>1</td>
+                            <td>$8.95</td>
+                        </tr>
+                        <tr>
+                            <td>b</td>
+                            <td>Coffee</td>
+                            <td>2</td>
+                            <td>$4.50</td>
+                        </tr>
+                        <tr>
+                            <td>f</td>
+                            <td>Spaghetti Bolognese</td>
+                            <td>1</td>
+                            <td>$14.99</td>
+                        </tr>
+                        <tr>
+                            <td>b</td>
+                            <td>Orange Juice</td>
+                            <td>1</td>
+                            <td>$3.99</td>
+                        </tr>
+                        <tr>
+                            <td>f</td>
+                            <td>Chicken Tacos</td>
+                            <td>2</td>
+                            <td>$10.50</td>
+                        </tr>
+                        <tr>
+                            <td>b</td>
+                            <td>Iced Tea</td>
+                            <td>1</td>
+                            <td>$2.25</td>
+                        </tr>
+                        <tr>
+                            <td>f</td>
+                            <td>Caesar Salad</td>
+                            <td>1</td>
+                            <td>$9.99</td>
+                        </tr>
+                        <tr>
+                            <td>b</td>
+                            <td>Lemonade</td>
+                            <td>1</td>
+                            <td>$2.99</td>
+                        </tr>
+                        <tr>
+                            <td>f</td>
+                            <td>Steak with Potatoes</td>
+                            <td>1</td>
+                            <td>$22.95</td>
+                        </tr>
+                        <tr>
+                            <td>b</td>
+                            <td>Milkshake</td>
+                            <td>1</td>
+                            <td>$4.50</td>
+                        </tr>
+                    </tbody>
+                </table>
+               </div>
+            <div class="form-group">
+                <label class="form-label mt-4"></label>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Total</span>
+                        <span class="input-group-text">$500.00</span>
+                    </div>
+                </div>
+            </div>
+            <div style="width:60%">
+                <div class="btn-group m-3 w-100 m-3">
+                    <button type="button" class="btn btn-danger">Back</button>
+                    <button type="button" class="btn btn-success">Pay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
