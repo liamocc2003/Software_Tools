@@ -18,7 +18,7 @@ namespace test.Controllers
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT orderItem.OrderID, menuItem.ItemName, menuItem.ItemType, menuItem.ItemPrice FROM OrderItems orderItem INNER JOIN MenuItems menuItem ON orderItem.ItemID = menuItem.ItemID WHERE orderItem.OrderID = 2;";
+                    string sql = "SELECT menuitem.ItemName, menuitem.ItemType, orderitem.OrderQuantity, menuitem.ItemPrice \r\nFROM OrderItems orderitem\r\nINNER JOIN MenuItems menuitem ON orderitem.ItemID = menuitem.ItemID\r\nWHERE orderitem.OrderID = 2;";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -27,10 +27,12 @@ namespace test.Controllers
                             {
                                 OrderDetails orderDetails = new OrderDetails();
 
-                                orderDetails.orderId = "" + reader.GetDecimal(0);
-                                orderDetails.itemName = "" + reader.GetString(1);
-                                orderDetails.itemType = "" + reader.GetString(2);
+                                
+                                orderDetails.itemName = "" + reader.GetString(0);
+                                orderDetails.itemType = "" + reader.GetString(1);
+                                orderDetails.orderItemQuantity = "" + reader.GetDecimal(2);
                                 orderDetails.itemPrice = "" + reader.GetDecimal(3);
+                                
 
                                 model.ListOrderDetails.Add(orderDetails);
                             }
@@ -46,9 +48,10 @@ namespace test.Controllers
 
     public class OrderDetails
     {
-        public string orderId;
         public string itemName;
         public string itemType;
+        public string orderItemQuantity;
         public string itemPrice;
+
     }
 }

@@ -17,21 +17,23 @@
                 <table class="table table-hover">
                     <thead style="position: sticky; top: 0;">
                         <tr>
-                            <th scope="col">OrderID</th>
+                            
                             <th scope="col">Item</th>
                             <th scope="col">Type</th>
-                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">UnitPrice</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model.ListOrderDetails)
                         {
-                            totalPrice += Convert.ToDecimal(item.itemPrice);
+                            totalPrice += (Convert.ToDecimal(item.itemPrice) * Convert.ToDecimal(item.orderItemQuantity));
                             <tr>
-                                <td>@item.orderId</td>
                                 <td>@item.itemName</td>
                                 <td>@item.itemType</td>
+                                <td>@item.orderItemQuantity</td>
                                 <td>@item.itemPrice</td>
+                                
                             </tr>
                         }
                     </tbody>
@@ -43,7 +45,7 @@
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <span class="input-group-text">Total</span>
-                        <span class="input-group-text">$@totalPrice</span>
+                        <span class="input-group-text">€@totalPrice</span>
                     </div>
                 </div>
             </div>
