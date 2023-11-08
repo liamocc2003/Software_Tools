@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
+
 :root {
     --background-color: #f5f7fa;
     --nav-color: #34495e;
@@ -25,6 +26,55 @@ input:focus {
 }
 
 body {
+
+  margin-bottom: 60px;
+  width:100%;
+ 
+}
+.btm-btns {
+    position: fixed;
+    bottom: 10%;
+}
+.pin {
+    height: 100vh;
+
+}
+
+    .pin .btn {
+        width: 30%;
+        height: 100px;
+        margin: 0.5%;
+    }
+
+    .pin .btn0 {
+       margin-left:31.5%;
+       margin-right:-31%;
+    }
+
+.enterPin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.form-control {
+    width:500px; 
+    height: 80px; 
+    margin-right: 10px; 
+}
+
+.btn-secondary {
+    flex-shrink: 0;
+    height:80px;
+}
+        
+
     display: flex;
     flex-direction: column;
 
