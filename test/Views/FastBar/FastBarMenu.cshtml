@@ -1,9 +1,8 @@
 ﻿@model CreateOrder;
-@using test.Controllers;
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Fast Bar";
 }
-<link rel="stylesheet" type="text/css" href="css/site.css">
+<link rel="stylesheet" type="text/css" href="/css/site.css">
 
 <div class="sellables-container">
     <div class="sellables">
@@ -34,10 +33,10 @@
                 <a href="#" class="item" data-item="Chocolate Milkshake" data-price="4.00">Chocolate Milkshake</a>
                 <a href="#" class="item" data-item="Lemonade" data-price="2.00">Lemonade</a>
                 <a href="#" class="item" data-item="Pineapple Juice" data-price="2.50">Pineapple Juice</a>
-                    
-                    
-                    
-                
+
+
+
+
             </div>
         </div>
     </div>
@@ -138,7 +137,7 @@
         createOrderButton.parentNode.appendChild(errorMessage);
         setTimeout(() => {
             errorMessage.remove();
-            errorMessageDisplayed = false; 
+            errorMessageDisplayed = false;
         }, 3000);
     }
 </script>
