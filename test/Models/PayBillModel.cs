@@ -7,11 +7,11 @@ namespace test.Models
 {
         public class PayBillModel
         {
-            public List<OrderDetails> ListOrderDetails { get; set; }
+            public List<BillDetails> ListBillDetails { get; set; }
 
             public PayBillModel()
             {
-                ListOrderDetails = new List<OrderDetails>();
+                ListBillDetails = new List<BillDetails>();
             }
         }
     }

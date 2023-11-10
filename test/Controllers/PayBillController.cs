@@ -25,15 +25,15 @@ namespace test.Controllers
                         {
                             while (reader.Read())
                             {
-                                OrderDetails orderDetails = new OrderDetails();
+                                BillDetails billDetails = new BillDetails();
 
-                                
-                                orderDetails.itemName = "" + reader.GetString(0);
-                                orderDetails.orderItemQuantity = "" + reader.GetDecimal(1);
-                                orderDetails.itemPrice = "" + reader.GetDecimal(2);
+
+                                billDetails.itemName = "" + reader.GetString(0);
+                                billDetails.itemQuantity = "" + reader.GetDecimal(1);
+                                billDetails.itemPrice = "" + reader.GetDecimal(2);
                                 
 
-                                //model.ListOrderDetails.Add(orderDetails);
+                                model.ListBillDetails.Add(billDetails);
                             }
                         }
                     }
@@ -68,10 +68,10 @@ namespace test.Controllers
         }
     }
 
-    public class OrderDetails
+    public class BillDetails
     {
         public string itemName;
-        public string orderItemQuantity;
+        public string itemQuantity;
         public string itemPrice;
     }
 

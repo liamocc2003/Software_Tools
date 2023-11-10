@@ -54,7 +54,7 @@ namespace test.Controllers
                                 orderDetails.itemName = "" + reader.GetString(0);
                                 orderDetails.itemPrice = "" + reader.GetString(1);
 
-                                //model.ListOrderDetails.Add(orderDetails);
+                                model.ListOrderDetails.Add(orderDetails);
                             }
                         }
                     }
