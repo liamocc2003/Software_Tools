@@ -35,6 +35,16 @@ body {
     position: fixed;
     bottom: 10%;
 }
+.editOrdersBtns {
+    position: center;
+    padding-top: 1.5em;
+}
+.editOrdersHeaders {
+    padding-top: 0.5em;
+}
+.editOrderstable {
+    margin-left: 1em;
+}
 .pin {
     height: 100vh;
 
@@ -128,7 +138,7 @@ body {
             width: 70%;
 
             h4{
-                padding-left: 4em;
+                text-align: center;
             }
 
             .categories {
@@ -136,8 +146,7 @@ body {
                 align-items: center;
                 flex-wrap: wrap;
                 width:100%;
-                margin: 0.5em;
-                border: 2px solid var(--nav-color);
+                margin-left: 1em;
 
                 .category {
                     padding: 17.5px;
@@ -285,26 +294,4 @@ body {
     }
 }
 
-.bottomBar{
-    display: flex;
-    flex-direction: row;
-    padding-top: 0.5em;
-    
-    input{
-        border-radius: 5px;
-        box-shadow: unset;
-    }
 
-    .removeFromOrderBtn{
-        display: flex;
-        padding-left: 9em;
-    }
-    .quantity {
-        display: flex;
-        padding-left: 20em;
-    }
-    .backBtn {
-        display: flex;
-        padding-left: 18em;
-    }
-}
