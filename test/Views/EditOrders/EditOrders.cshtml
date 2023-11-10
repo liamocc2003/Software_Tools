@@ -1,0 +1,93 @@
+﻿@model EditOrdersModel;
+@{
+    ViewData["Title"] = "EditOrders";
+}
+<link rel="stylesheet" type="text/css" href="css/site.css">
+
+<h1>Edit Orders</h1>
+
+<div class="sellables-container">
+    <div class="register-wrapper align-content-lg-start">
+        <div class="customer">
+            <input type="text" placeholder="Search Order Items" />
+            <button type="button" class="btn btn-primary btn-lg">Add to Search</button>
+        </div>
+
+        <h4 class="editOrdersHeaders">Order Items</h4>
+        <div class="register">
+            <div class="products">
+                <div class="product-bar">
+                    <span>Cookies</span>
+                    <span>€5.00</span>
+                </div>
+
+                <div class="product-bar">
+                    <span>Vodka</span>
+                    <span>€5.00</span>
+                </div>
+
+                <div class="product-bar">
+                    <span>Bulmers</span>
+                    <span>€5.00</span>
+                </div>
+            </div>
+
+            <div class="total">
+                <p>Total €15.00</p>
+            </div>
+        </div>
+    </div>
+    <div class="sellables align-content-lg-end">
+        <div class="categories">
+            <a class="category active" href="#">Beverages</a>
+            <a class="category" href="#">Non-Alcoholic</a>
+            <a class="category" href="#">Lunch Menu</a>
+            <a class="category" href="#">Dinner Menu</a>
+            <a class="category" href="#">Bar Snacks</a>
+            <a class="category" href="#">Deals</a>
+            <a class="category" href="#">Off-Sale Bottles</a>
+        </div>
+
+        <h4 class="editOrdersHeaders">Menu Items</h4>
+
+        <table class="table table-hover editOrderstable">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price(€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-active">
+                    <td>Vodka</td>
+                    <td>This is a vodka</td>
+                    <td>5.00</td>
+                </tr>
+                <tr class="table-active">
+                    <td>Bulmers</td>
+                    <td>This is a bulmers cider</td>
+                    <td>0.25</td>
+                </tr>
+                <tr class="table-active">
+                    <td>Guiness</td>
+                    <td>This is a pint of Guniness</td>
+                    <td>10.00</td>
+                </tr>
+                <tr class="table-active">
+                    <td>Pina Colada</td>
+                    <td>This is a Pina Colada cocktail</td>
+                    <td>8.50</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="editOrdersBtns">
+    <button type="button" class="btn btn-primary btn-lg">Remove from Order</button>
+    <label>Quantity:</label>
+    <input type="number" value="1" />
+    <button type="button" class="btn btn-primary btn-lg">Add to Order</button>
+    <button type="button" class="btn btn-primary btn-lg"><a class="nav-link" asp-area="" asp-controller="Order" asp-action="Order">Back</a></button>
+</div>

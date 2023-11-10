@@ -1,0 +1,67 @@
+﻿@model OrderModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+
+    <h1>View All Orders</h1>
+   
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">OrderID</th>
+                <th scope="col">Table No.</th>
+                <th scope="col">Order Time</th>
+                <th scope="col">Order Price</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        <p>heello</p>
+            <tr class="table-active">
+                <th scope="row">1</th>
+                <td>5</td>
+                <td>14:32:00</td>
+                <td>55.00</td>
+                <td>Unpaid</td>
+            </tr>
+            <tr class="table-active">
+                <th scope="row">2</th>
+                <td>7</td>
+                <td>16:49:00</td>
+                <td>32.50</td>
+                <td>Paid</td>
+            </tr>
+            <tr class="table-active">
+                <th scope="row">3</th>
+                <td>1</td>
+                <td>17:00:00</td>
+                <td>15.75</td>
+                <td>Unpaid</td>
+            </tr>
+            <tr class="table-active">
+                <th scope="row">4</th>
+                <td>4</td>
+                <td>17:05:00</td>
+                <td>109.45</td>
+                <td>Unpaid</td>
+            </tr>
+            <tr class="table-active">
+                <th scope="row">5</th>
+                <td>8</td>
+                <td>17:05:00</td>
+                <td>109.45</td>
+                <td>Unpaid</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <div class="btm-btns">
+        <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="PayBill" asp-action="PayBill">Pay Bill</a></button>
+        <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="EditOrders" asp-action="EditOrders">Edit Order</a></button>
+        <button type="button" class="btn btn-primary btn-lg">Cancel Order</button>
+        <button type="button" class="btn btn-primary btn-lg">Log Out</button>
+    </div>
+}

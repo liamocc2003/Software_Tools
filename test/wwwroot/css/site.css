@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
+
 :root {
     --background-color: #f5f7fa;
     --nav-color: #34495e;
@@ -10,13 +11,12 @@
     --selected-color: #68b3c8;
     --pay-button-color: #42a07f;
 }
-
 html, body {
     height: 100%;
-    margin: 0;
+    width: 100%;
+    margin: 0px;
     font-family: 'Open Sans', Helvetica, sans-serif;
 }
-
 a, a:hover {
     text-decoration: none;
 }
@@ -26,32 +26,28 @@ input:focus {
 }
 
 body {
-<<<<<<< Updated upstream
-=======
-    margin-bottom: 60px;
-    width: 100%;
-}
 
+  margin-bottom: 60px;
+  width:100%;
+ 
+}
 .btm-btns {
     position: fixed;
     bottom: 10%;
 }
-
 .editOrdersBtns {
     position: center;
     padding-top: 1.5em;
 }
-
 .editOrdersHeaders {
     padding-top: 0.5em;
 }
-
 .editOrderstable {
     margin-left: 1em;
 }
-
 .pin {
     height: 100vh;
+
 }
 
     .pin .btn {
@@ -61,8 +57,8 @@ body {
     }
 
     .pin .btn0 {
-        margin-left: 31.5%;
-        margin-right: -31%;
+       margin-left:31.5%;
+       margin-right:-31%;
     }
 
 .enterPin {
@@ -78,357 +74,224 @@ body {
 }
 
 .form-control {
-    width: 500px;
-    height: 80px;
-    margin-right: 10px;
+    width:500px; 
+    height: 80px; 
+    margin-right: 10px; 
 }
 
 .btn-secondary {
     flex-shrink: 0;
-    height: 80px;
+    height:80px;
 }
+        
 
-body {
->>>>>>> Stashed changes
     display: flex;
     flex-direction: column;
-}
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    background: var(--nav-color);
-    padding: 9px 0;
-<<<<<<< Updated upstream
-}
+    nav {
+        display: flex;
+        justify-content: space-between;
+        background: var(--nav-color);
+        padding: 9px 0;
 
-ul {
-    display: flex;
-    align-items: center;
-    margin: 0;
-}
+        ul {
+            display: flex;
+            align-items: center;
+            margin: 0;
+        
+            li {
+                list-style-type: none;
 
-li {
-    list-style-type: none;
-}
+                a{
+                    color: #fff;
+                    padding: 20px;
+                    font-size: 25px;
+                }
+                a:hover{
+                    color: #fff;
+                }
+            }
+        }
 
-a {
-    color: #fff;
-    padding: 20px;
-}
+        .search input {
+            width: 395px;
+            height: 40px;
+            margin-right: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
 
-    a:hover {
-        background-color: #000 !important;
+        .search input::placeholder {
+            font-style: italic;
+        }
     }
 
-.search input {
-    width: 394px;
-=======
-    ul
+    .sellables-container {
+        display: flex;
+        flex: 1;
+    
+        .sellables {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
 
-{
-    display: flex;
-    align-items: center;
-    margin: 0;
-    li
+            h4{
+                text-align: center;
+            }
 
-{
-    list-style-type: none;
-    a
+            .categories {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                width:100%;
+                margin-left: 1em;
 
-{
-    color: #fff;
-    padding: 20px;
-    font-size: 25px;
-}
+                .category {
+                    padding: 17.5px;
+                    margin: 2px;
+                    border: 1px solid darken(var(--category-color), 10%);
+                    border-radius: 5px;
+                    background: var(--category-color);
+                    color: #424A54;
+                }
 
-a:hover {
-    color: #fff;
-}
+                .category:hover {
+                    background: darken(var(--category-color), 10%);
+                }
 
-}
-}
+                .active {
+                    background: darken(var(--category-color), 15%);
+                    color: #424A54;
+                }
 
-.search input {
-    width: 395px;
->>>>>>> Stashed changes
-    height: 40px;
-    margin-right: 30px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    text-align: center;
-}
+                .active:hover {
+                    background: darken(var(--category-color), 20%);
+                }
+            }
 
-    .search input::placeholder {
-        font-style: italic;
+            .item-group-wrapper {
+                overflow-y: scroll;
+                margin: 0.5em;
+                border: 2px solid var(--nav-color);
+
+                .item-group {
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .item {
+                        padding: 50px 35px;
+                        margin: 0.5em;
+                        border-radius: 5px;
+                        background: var(--item-color);
+                        color: white;
+                    }
+
+                    .item:hover {
+                        background: darken(var(--item-color), 10%);
+                    }
+                }
+                table{
+                    margin: 1em;
+                    font-size: 16px;
+                    width: 100%;
+                }
+                th{
+                    margin: 1em;
+                }
+            }
+        }
+
+        .register-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .customer input {
+                height: 40px;
+                width: 49%;
+                margin-top: 16px;
+                margin-bottom: 0px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                text-align: center;
+                font-size: 16px;
+            }
+
+            .customer input::placeholder {
+                font-style: italic;
+                font-size: 12px;
+            }
+
+            .register {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                flex: 1;
+                width: 400px;
+                box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
+                border-radius: 5px;
+                background: var(--register-color);
+                border: 2px solid var(--nav-color);
+
+                .products {
+                    display: flex;
+                    flex-direction: column;
+
+                    .product-bar {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 1em;
+                        background: var(--product-bar-color);
+                    }
+
+                    .product-bar:first-child {
+                        margin-top: 1em;
+                    }
+
+                    .product-bar:hover {
+                        background: darken(var(--product-bar-color), 10%);
+                    }
+
+                    .selected {
+                        background: var(--selected-color);
+                        color: #fff;
+                    }
+
+                    .selected:hover {
+                        background: darken(var(--selected-color), 10%);
+                    }
+                }
+                p{
+                    border-top: 5px solid #000;
+                    padding-top: 0.3em;
+                }
+
+                .pay-button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    a {
+                        padding: 10px 125px;
+                        margin: 1em 0;
+                        border-radius: 5px;
+                        background: var(--pay-button-color);
+                        color: #fff;
+                    }
+
+                    a:hover {
+                        background: darken(var(--pay-button-color), 5%);
+                    }
+                }
+                .total{
+                    text-align: center;
+                    font-size: 18px;
+                }
+            }
     }
-
-<<<<<<< Updated upstream
-=======
 }
 
->>>>>>> Stashed changes
-.sellables-container {
-    display: flex;
-    flex: 1;
-}
 
-.sellables {
-    display: flex;
-    flex-direction: column;
-<<<<<<< Updated upstream
-    flex: 1;
-=======
-    width: 70%;
-    h4
-
-{
-    text-align: center;
->>>>>>> Stashed changes
-}
-
-.categories {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-<<<<<<< Updated upstream
-    margin: 0.5em;
-}
-
-.category {
-=======
-    width: 100%;
-    margin-left: 1em;
-    .category
-
-{
->>>>>>> Stashed changes
-    padding: 17.5px;
-    margin: 2px;
-    border: 1px solid darken(var(--category-color), 10%);
-    border-radius: 5px;
-    background: var(--category-color);
-    color: #424A54;
-}
-
-<<<<<<< Updated upstream
-    .category:hover {
-        background: darken(var(--category-color), 10%);
-    }
-=======
-.category:hover {
-    background: darken(var(--category-color), 10%);
-}
->>>>>>> Stashed changes
-
-.active {
-    background: darken(var(--category-color), 15%);
-    color: #424A54;
-}
-
-    .active:hover {
-        background: darken(var(--category-color), 20%);
-    }
-
-<<<<<<< Updated upstream
-.item-group-wrapper {
-    overflow-y: scroll;
-}
-
-.item-group {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.item {
-=======
-}
-
-.item-group-wrapper {
-    overflow-y: scroll;
-    margin: 0.5em;
-    border: 2px solid var(--nav-color);
-    .item-group
-
-{
-    display: flex;
-    flex-wrap: wrap;
-    .item
-
-{
->>>>>>> Stashed changes
-    padding: 50px 35px;
-    margin: 0.5em;
-    border-radius: 5px;
-    background: var(--item-color);
-    color: white;
-}
-
-<<<<<<< Updated upstream
-#item-group .item:hover {
-    background-color: #000 !important;
-=======
-.item:hover {
-    background: darken(var(--item-color), 10%);
-}
-
-}
-
-table {
-    margin: 1em;
-    font-size: 16px;
-    width: 100%;
-}
-
-th {
-    margin: 1em;
-}
-
-}
->>>>>>> Stashed changes
-}
-
-.register-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.customer input {
-    height: 40px;
-<<<<<<< Updated upstream
-    width: 394px;
-    margin-top: 16px;
-=======
-    width: 49%;
-    margin-top: 16px;
-    margin-bottom: 0px;
->>>>>>> Stashed changes
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 16px;
-}
-
-    .customer input::placeholder {
-        font-style: italic;
-<<<<<<< Updated upstream
-=======
-        font-size: 12px;
->>>>>>> Stashed changes
-    }
-
-.register {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex: 1;
-    width: 400px;
-<<<<<<< Updated upstream
-    margin: 1em 2em;
-    box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    background: var(--register-color);
-}
-
-.products {
-    display: flex;
-    flex-direction: column;
-}
-
-.product-bar {
-=======
-    box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    background: var(--register-color);
-    border: 2px solid var(--nav-color);
-    .products
-
-{
-    display: flex;
-    flex-direction: column;
-    .product-bar
-
-{
->>>>>>> Stashed changes
-    display: flex;
-    justify-content: space-between;
-    padding: 1em;
-    background: var(--product-bar-color);
-}
-
-<<<<<<< Updated upstream
-    .product-bar:first-child {
-        margin-top: 1em;
-    }
-
-    .product-bar:hover {
-        background: darken(var(--product-bar-color), 10%);
-    }
-=======
-.product-bar:first-child {
-    margin-top: 1em;
-}
-
-.product-bar:hover {
-    background: darken(var(--product-bar-color), 10%);
-}
->>>>>>> Stashed changes
-
-.selected {
-    background: var(--selected-color);
-    color: #fff;
-}
-
-    .selected:hover {
-        background: darken(var(--selected-color), 10%);
-    }
-
-<<<<<<< Updated upstream
-=======
-}
-
-p {
-    border-top: 5px solid #000;
-    padding-top: 0.3em;
-}
-
->>>>>>> Stashed changes
-.pay-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-<<<<<<< Updated upstream
-}
-
-a {
-=======
-    a
-
-{
->>>>>>> Stashed changes
-    padding: 10px 125px;
-    margin: 1em 0;
-    border-radius: 5px;
-    background: var(--pay-button-color);
-    color: #fff;
-}
-
-<<<<<<< Updated upstream
-    a:hover {
-        background: darken(var(--pay-button-color), 5%);
-    }
-=======
-a:hover {
-    background: darken(var(--pay-button-color), 5%);
-}
-
-}
-
-.total {
-    text-align: center;
-    font-size: 18px;
-}
-}
->>>>>>> Stashed changes
