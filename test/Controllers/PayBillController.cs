@@ -33,7 +33,7 @@ namespace test.Controllers
                                 orderDetails.itemPrice = "" + reader.GetDecimal(2);
                                 
 
-                                model.ListOrderDetails.Add(orderDetails);
+                                //model.ListOrderDetails.Add(orderDetails);
                             }
                         }
                     }

@@ -26,10 +26,9 @@
                                 <tbody>
                                     @foreach (var item in Model.ListOrderDetails)
                                     {
-                                        totalPrice += (Convert.ToDecimal(item.itemPrice) * Convert.ToDecimal(item.orderItemQuantity));
+                                        totalPrice = (Convert.ToDecimal(item.itemPrice));// * Convert.ToDecimal(item.orderItemQuantity));
                                         <tr>
                                             <td>@item.itemName</td>
-                                            <td>@item.orderItemQuantity</td>
                                             <td>@item.itemPrice</td>
                                 
                                         </tr>
