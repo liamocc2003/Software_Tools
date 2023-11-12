@@ -35,10 +35,6 @@ body {
     position: fixed;
     bottom: 10%;
 }
-.editOrdersBtns {
-    position: center;
-    padding-top: 1.5em;
-}
 .editOrdersHeaders {
     padding-top: 0.5em;
 }
