@@ -7,14 +7,11 @@ namespace test.Models
 {
     public class CreateOrder
     {
-        public string itemName { get; set; }
-        public string itemPrice { get; set; }
-        public List<OrderDetails> ListOrderDetails { get; set; }
+        public List<OrderDetails> listOrderDetails { get; set; }
 
         public CreateOrder()
         {
-            ListOrderDetails = new List<OrderDetails>();
-            Console.WriteLine("I am working");
+            listOrderDetails = new List<OrderDetails>();
         }
     }
 } 

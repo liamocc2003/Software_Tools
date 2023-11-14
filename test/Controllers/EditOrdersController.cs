@@ -20,7 +20,7 @@ namespace test.Controllers
             {
                 connection.Open();
                 //Select Order Items
-                string sql1 = "SELECT menuItems.ItemName, orderItems.OrderQuantity, menuItems.ItemPrice FROM OrderItems orderItems ON orderItems.ItemID = menuItems.ItemID WHERE orderItems.OrderID = 2;";
+                string sql1 = "SELECT menuItems.ItemName, orderItems.OrderQuantity, menuItems.ItemPrice FROM OrderItems orderItems INNER JOIN MenuItems menuitems ON orderItems.ItemID = menuItems.ItemID WHERE orderItems.OrderID = 2;";
 
                 using (SqlCommand command = new SqlCommand(sql1, connection))
                 {

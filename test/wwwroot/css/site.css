@@ -19,6 +19,7 @@ html, body {
 }
 a, a:hover {
     text-decoration: none;
+    color: #fff;
 }
 
 input:focus {
@@ -31,11 +32,13 @@ body {
   width:100%;
  
 }
+
 .btm-btns {
     position: fixed;
     bottom: 10%;
 }
-.editOrdersMenuSelection{
+
+.ordersMenuSelection{
     justify-content: center;
 }
 .editOrdersOrderItems{
@@ -49,7 +52,13 @@ body {
 }
 .editOrdersButtons{
     padding-top: 1.5em;
+    text-align: center;
 }
+
+.createOrderBox{
+    padding-top: 1em;
+}
+
 .pin {
     height: 100vh;
 
@@ -77,6 +86,9 @@ body {
     display: flex;
     align-items: center;
 }
+.left-align{
+    text-align: right;
+}
 
 .form-control {
     width:500px; 
@@ -87,6 +99,10 @@ body {
 .btn-secondary {
     flex-shrink: 0;
     height:80px;
+}
+
+.payBillBackBtn{
+    color: #000;
 }
         
 

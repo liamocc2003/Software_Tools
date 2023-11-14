@@ -8,40 +8,23 @@
 
 <div class="sellables-container">
     <div class="sellables">
-        <div class="categories">
-            <a class="category" href="#">Beverages</a>
-            <a class="category" href="#">Non-Alcoholic</a>
-            <a class="category" href="#">Lunch Menu</a>
-            <a class="category" href="#">Dinner Menu</a>
-            <a class="category" href="#">Bar Snacks</a>
-            <a class="category" href="#">Deals</a>
-            <!-- Other categories -->
+        <div class="categories ordersMenuSelection">
+            <form action="/EditOrders/EditOrders" method="post">
+                <button type="submit" class="category">Beverages</button>
+                <button type="submit" class="category">Dinner</button>
+                <button type="submit" class="category">Dessert</button>
+            </form>
         </div>
         <div class="item-group-wrapper">
             <div class="item-group">
-                <a href="#" class="item" data-item="Bud Light" data-price="3.00">Bud Light</a>
-                <a href="#" class="item" data-item="Coca-Cola" data-price="1.50">Coca-Cola</a>
-                <a href="#" class="item" data-item="Sprite" data-price="1.50">Sprite</a>
-                <a href="#" class="item" data-item="Lemonade" data-price="2.00">Lemonade</a>
-                <a href="#" class="item" data-item="Iced Tea" data-price="2.00">Iced Tea</a>
-                <a href="#" class="item" data-item="Orange Juice" data-price="2.50">Orange Juice</a>
-                <a href="#" class="item" data-item="Apple Juice" data-price="2.50">Apple Juice</a>
-                <a href="#" class="item" data-item="Water" data-price="1.00">Water</a>
-                <a href="#" class="item" data-item="Milk" data-price="2.50">Milk</a>
-                <a href="#" class="item" data-item="Coffee" data-price="2.00">Coffee</a>
-                <a href="#" class="item" data-item="Tea" data-price="1.50">Tea</a>
-                <a href="#" class="item" data-item="Fruit Smoothie" data-price="3.50">Fruit Smoothie</a>
-                <a href="#" class="item" data-item="Mango Shake" data-price="3.00">Mango Shake</a>
-                <a href="#" class="item" data-item="Chocolate Milkshake" data-price="4.00">Chocolate Milkshake</a>
-                <a href="#" class="item" data-item="Lemonade" data-price="2.00">Lemonade</a>
-                <a href="#" class="item" data-item="Pineapple Juice" data-price="2.50">Pineapple Juice</a>
+                @foreach (var item in Model.listOrderDetails)
+                {
+                    <a href="#" class="item" data-item="@item.itemName" data-price="@item.itemPrice">@item.itemName</a>
+                }
             </div>
         </div>
     </div>
-    <div class="register-wrapper">
-        <div class="customer">
-            <input type="text" placeholder="Customer" />
-        </div>
+    <div class="register-wrapper createOrderBox">
         <div class="register">
             <div class="products">
                 <!-- Added items will be displayed here -->

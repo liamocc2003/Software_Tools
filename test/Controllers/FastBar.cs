@@ -17,30 +17,15 @@ namespace test.Controllers
 
         public IActionResult FastBarMenu()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        [HttpGet]
-        public IActionResult RetrieveItems()
-        {
-            var model = new CreateOrder();
+            CreateOrder model = new CreateOrder();
 
             string connectionString = "Server=tcp:restaurantdatabaseserver.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string sql = "SELECT ItemName, ItemPrice FROM MenuItems";
+                string sql = "SELECT menuItems.ItemName, menuItems.ItemPrice FROM MenuItems menuItems";
+
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     try
@@ -51,23 +36,25 @@ namespace test.Controllers
                             {
                                 OrderDetails orderDetails = new OrderDetails();
 
-                                orderDetails.itemName = "" + reader.GetString(0);
-                                orderDetails.itemPrice = "" + reader.GetString(1);
+                                orderDetails.itemName = reader.GetString(0);
+                                orderDetails.itemPrice = reader.GetDecimal(1).ToString();
 
-                                model.ListOrderDetails.Add(orderDetails);
+                                model.listOrderDetails.Add(orderDetails);
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (NullReferenceException ex)
                     {
                         Console.WriteLine("Error: " + ex.Message);
                     }
                 }
+                connection.Close();
             }
 
             // Pass the List of CreateOrder to the view with the menu items.
             return View(model);
         }
+
         [HttpPost]
         public IActionResult CreateOrder(List<OrderDetails> selectedItems, string customerName)
         {
@@ -90,6 +77,7 @@ namespace test.Controllers
 
                     command.ExecuteNonQuery();
                 }
+                connection.Close();
             }
 
             return RedirectToAction("OrderSuccess");
@@ -116,6 +104,7 @@ namespace test.Controllers
                         nextOrderID = Convert.ToInt32(result) + 1;
                     }
                 }
+                connection.Close();
             }
 
             return nextOrderID;
