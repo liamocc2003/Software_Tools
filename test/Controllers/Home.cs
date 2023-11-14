@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Security.Principal;
 using test.Models;
 
 namespace test.Controllers
@@ -36,7 +39,11 @@ namespace test.Controllers
                 if (pins.Exists(pin => pin.PinID == enteredPin))
                 {
                     return RedirectToAction("FastBarMenu", "FastBar");
-
+                }
+                else
+                {
+                    string InvalidPinMsg = "Pin enetered is invalid";
+                    return RedirectToAction("Index", "Home", InvalidPinMsg);
                 }
             }
 

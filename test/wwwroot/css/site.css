@@ -152,6 +152,7 @@ body {
                 flex-wrap: wrap;
                 width:100%;
                 margin-left: 1em;
+                margin-top: 1em;
 
                 .category {
                     padding: 17.5px;
@@ -163,7 +164,7 @@ body {
                 }
 
                 .category:hover {
-                    background: darken(var(--category-color), 10%);
+                    background: darken(var(--category-color), 15%);
                 }
 
                 .active {
@@ -194,7 +195,7 @@ body {
                     }
 
                     .item:hover {
-                        background: darken(var(--item-color), 10%);
+                        color: var(--nav-color);
                     }
                 }
                 table{
@@ -255,17 +256,9 @@ body {
                         margin-top: 1em;
                     }
 
-                    .product-bar:hover {
-                        background: darken(var(--product-bar-color), 10%);
-                    }
-
                     .selected {
                         background: var(--selected-color);
                         color: #fff;
-                    }
-
-                    .selected:hover {
-                        background: darken(var(--selected-color), 10%);
                     }
                 }
                 p{
@@ -287,12 +280,13 @@ body {
                     }
 
                     a:hover {
-                        background: darken(var(--pay-button-color), 5%);
+                        color: var(--nav-color);
                     }
                 }
                 .total{
                     text-align: center;
                     font-size: 18px;
+                    justify-content: center;
                 }
             }
     }
