@@ -1,9 +1,6 @@
 ﻿@model OrderModel
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
+@{
 
 
     <h1>View All Orders</h1>
@@ -64,6 +61,8 @@
         <button type="button" class="btn btn-primary btn-lg">Cancel Order</button>
         <button type="button" class="btn btn-primary btn-lg">Log Out</button>
     </div>
+
+}
 <div class="btm-btns">
     <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="PayBill" asp-action="PayBill">Pay Bill</a></button>
     <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="EditOrders" asp-action="EditOrders">Edit Order</a></button>
@@ -129,4 +128,3 @@
         document.body.appendChild(alertDiv);
     }
 </script>
-
