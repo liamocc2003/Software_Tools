@@ -1,8 +1,10 @@
-﻿@model CreateOrder;
+﻿@model CreateOrder
 @{
     ViewData["Title"] = "Fast Bar";
 }
-<link rel="stylesheet" type="text/css" href="/css/site.css">
+
+<link rel="stylesheet" type="text/css" href="css/site.css" />
+
 
 <div class="sellables-container">
     <div class="sellables">
@@ -33,10 +35,6 @@
                 <a href="#" class="item" data-item="Chocolate Milkshake" data-price="4.00">Chocolate Milkshake</a>
                 <a href="#" class="item" data-item="Lemonade" data-price="2.00">Lemonade</a>
                 <a href="#" class="item" data-item="Pineapple Juice" data-price="2.50">Pineapple Juice</a>
-
-
-
-
             </div>
         </div>
     </div>
@@ -46,46 +44,32 @@
         </div>
         <div class="register">
             <div class="products">
-                <!-- Added items are here-->
+                <!-- Added items will be displayed here -->
             </div>
 
-
             <div class="pay-button">
-                <a href="#">Create Order</a>
+                <a href="#" id="createOrderButton">Create Order</a>
             </div>
             <div id="total-price">Total: €0.00</div>
         </div>
     </div>
 </div>
 
-
-
-<!-- Rest of your HTML -->
-<!-- Rest of your HTML -->
-
 <script>
-    // Code
     const productsDiv = document.querySelector(".products");
-    const createOrderButton = document.querySelector(".pay-button a");
+    const createOrderButton = document.getElementById("createOrderButton");
 
-    // Initializing the total price
     let totalPrice = 0;
-
-    // Initialize an error message flag
     let errorMessageDisplayed = false;
 
-    // Adding a click event handler to the "Create Order" button
     createOrderButton.addEventListener("click", (event) => {
         event.preventDefault();
 
-        // Check if there are selected items
         if (totalPrice > 0) {
-            // Create order successfully
-            displaySuccessMessage("Order created successfully!");
+            createOrder();
         } else if (!errorMessageDisplayed) {
-            // Handle error when no items are selected and no error message has been displayed
             displayErrorMessage("No items selected for the order.");
-            errorMessageDisplayed = true; // Set the flag to true to indicate that an error message has been displayed
+            errorMessageDisplayed = true;
         }
     });
 
@@ -95,51 +79,65 @@
             event.preventDefault();
 
             const itemName = button.getAttribute("data-item");
-            const itemPrice = parseFloat(button.getAttribute("data-price")); // Get the price as a floating-point number
+            const itemPrice = parseFloat(button.getAttribute("data-price"));
 
             const selectedProduct = document.createElement("div");
             selectedProduct.className = "product-bar selected";
             selectedProduct.innerHTML = `
-                            <span>${itemName}</span>
-                            <span>€${itemPrice.toFixed(2)}</span>
-                        `;
+                    <span>${itemName}</span>
+                    <span>€${itemPrice.toFixed(2)}</span>
+                `;
 
             productsDiv.appendChild(selectedProduct);
 
-            // Updating the total price
             totalPrice += itemPrice;
             updateTotalPrice();
         });
     });
 
-    // Function to update the total price
     function updateTotalPrice() {
-        const totalElement = document.querySelector("#total-price");
+        const totalElement = document.getElementById("total-price");
         totalElement.textContent = `Total: €${totalPrice.toFixed(2)}`;
     }
 
-    // Function to display a success message
-    function displaySuccessMessage(message) {
-        const successMessage = document.createElement("div");
-        successMessage.className = "success-message";
-        successMessage.textContent = message;
-        createOrderButton.parentNode.appendChild(successMessage);
-        setTimeout(() => {
-            successMessage.remove();
-        }, 3000);
+    function createOrder() {
+        const customerName = document.querySelector(".customer input").value;
+        const selectedItems = getSelectedItems();
+
+        fetch('/FastBar/CreateOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                selectedItems: selectedItems,
+                customerName: customerName,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
-    // Function to display an error message
-    function displayErrorMessage(message) {
-        const errorMessage = document.createElement("div");
-        errorMessage.className = "error-message";
-        errorMessage.textContent = message;
-        createOrderButton.parentNode.appendChild(errorMessage);
-        setTimeout(() => {
-            errorMessage.remove();
-            errorMessageDisplayed = false;
-        }, 3000);
+    function getSelectedItems() {
+        const selectedItems = [];
+
+        const productBars = document.querySelectorAll(".product-bar");
+        productBars.forEach((productBar) => {
+            const itemName = productBar.querySelector("span:first-child").textContent;
+            const itemPrice = parseFloat(productBar.querySelector("span:last-child").textContent.replace("€", ""));
+
+            selectedItems.push({
+                itemName: itemName,
+                itemPrice: itemPrice,
+            });
+        });
+
+        return selectedItems;
     }
+
 </script>
-
-
