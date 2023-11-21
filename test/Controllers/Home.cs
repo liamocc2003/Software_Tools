@@ -31,6 +31,7 @@ namespace test.Controllers
         [HttpPost]
         public IActionResult VerifyLogin(string searchInput)
         {
+            return RedirectToAction("FastBarMenu", "FastBar");
             int enteredPin;
             if (int.TryParse(searchInput, out enteredPin))
             {
@@ -54,7 +55,7 @@ namespace test.Controllers
         {
             List<Pin> pins = new List<Pin>();
 
-            string connectionString = "Server=tcp:restaurantdatabaseserver.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            string connectionString = "Server=tcp:restaurantdatabaseserver2.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

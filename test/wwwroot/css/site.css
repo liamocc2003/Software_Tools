@@ -157,6 +157,7 @@ body {
             display: flex;
             flex-direction: column;
             width: 70%;
+            margin-right:5rem;
 
             h4{
                 text-align: center;
