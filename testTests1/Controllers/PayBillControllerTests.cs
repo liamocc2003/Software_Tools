@@ -1,12 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using test.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using test.Models;
+using System.Data.SqlClient;
+using System;
 
 namespace test.Controllers.Tests
 {
@@ -27,31 +23,53 @@ namespace test.Controllers.Tests
 
         // Test Cases for PayBill Action
 
-        // Test Case 1: Verify that the action retrieves the correct item names, quantities, and prices for a given order ID.
-        /*
-        [Fact]
+        string connectionString = "Server=tcp:restaurantdatabaseserver2.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private object orderId;
+
+        //Test Case 1: Verify that the action retrieves the correct item names, quantities, and prices for a given order ID.
+
         public void PayBill_ShouldRetrieveCorrectOrderDetails()
         {
-        // Arrange
-        var expectedData = new List<OrderDetails> {
-            new OrderDetails { itemName = "Pizza", orderItemQuantity = "2", itemPrice = "15.00" },
-        };
-        var mockDb = new Mock<IDatabase>(); 
-        mockDb.Setup(db => db.Query()).Returns(expectedData);
+    // Arrange
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT itemName, orderItemQuantity, itemPrice FROM OrderDetails WHERE orderId = @orderId", connection);
+                command.Parameters.AddWithValue("@orderId", orderId);
 
-        var controller = new PayBillController(mockDb.Object);
+                List<OrderDetails> expectedData = new List<OrderDetails>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                while (reader.Read())
+                {
+                expectedData.Add(new OrderDetails
+                {
+                    itemName = reader.GetString(0),
+                    itemQuantity = reader.GetString(1),
+                    itemPrice = reader.GetDecimal(2).ToString("0.00")
+                });
+            }
+        }
+
+        var controller = new PayBillController(); // Assuming the controller doesn't require the database in the constructor
 
         // Act
         var result = controller.PayBill();
 
-        // Assert
-        var viewResult = Assert.IsType<ViewResult>(result);
-        var model = Assert.IsAssignableFrom<PayBillModel>(viewResult.Model);
-        Assert.Equal(expectedData, model.ListOrderDetails);
-    }
 
+                // Assert
 
-*/
+                var model = new PayBillModel();
+                Assert.Equals(expectedData.Count, model.ListBillDetails.Count);
+                for (int i = 0; i < expectedData.Count; i++)
+                {
+                    Assert.Equals(expectedData[i].itemName, model.ListBillDetails[i].itemName);
+                    Assert.Equals(expectedData[i].itemQuantity, model.ListBillDetails[i].itemQuantity);
+                    Assert.Equals(expectedData[i].itemPrice, model.ListBillDetails[i].itemPrice);
+                }
+            }
+        }
+
         // Test Case 2: Check the response when the database connection fails.
         /*
             [Fact]
