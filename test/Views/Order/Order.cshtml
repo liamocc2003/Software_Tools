@@ -1,9 +1,10 @@
 ﻿@model OrderModel
 
-@{
-    ViewData["Title"] = "EditOrders";
-}
-<h1>View All Orders</h1>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+ <h1>View All Orders</h1>
    
 <table class="table table-hover">
     <thead>
@@ -18,7 +19,7 @@
     <tbody>
         @foreach (var item in Model.listViewOrderDetails)
         {
-            <tr class="table-active">
+            <tr class="table-active" onclick="selectRow(this)">
                 <th scope="row">@item.orderID</th>
                 <td>@item.orderTableNo</td>
                 <td>@item.orderDate</td>
@@ -29,7 +30,7 @@
     </tbody>
 </table>
 <div class="btm-btns">
-    <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="PayBill" asp-action="PayBill">Pay Bill</a></button>
+    <button type="button" class="btn btn-primary btn-lg" onclick="payBill()">Pay Bill</button>  
     <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="EditOrders" asp-action="EditOrders">Edit Order</a></button>
     <button type="button" class="btn btn-primary btn-lg" id="cancelOrderBtn">Cancel Order</button>
     <button type="button" class="btn btn-primary btn-lg" id="logoutBtn">Log Out</button>
@@ -91,5 +92,34 @@
         alertDiv.appendChild(noButton);
 
         document.body.appendChild(alertDiv);
+    }
+
+
+
+
+    // Function to handle row selection
+    function selectRow(row) {
+        // Deselect previous row
+        var selectedRows = document.querySelectorAll('tr.table-selected');
+        selectedRows.forEach(function (selectedRow) {
+            selectedRow.classList.remove('table-selected');
+        });
+
+        // Select the clicked row
+        row.classList.add('table-selected');
+
+        // Get the selected orderID
+        selectedOrderID = row.querySelector('th').textContent;
+    }
+
+    // Function to handle Pay Bill button click
+    function payBill() {
+        if (selectedOrderID) {
+            console.log('Selected OrderID:', selectedOrderID);
+            // Pass the selected orderID to the PayBill page
+            window.location.href = '/PayBill/PayBill?orderID=' + selectedOrderID;
+        } else {
+            alert('Please select an order to pay.');
+        }
     }
 </script>

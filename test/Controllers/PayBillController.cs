@@ -8,33 +8,34 @@ namespace test.Controllers
 {
     public class PayBillController : Controller
     {
-        public IActionResult PayBill()
+        public IActionResult PayBill(string orderID)
         {
             var model = new PayBillModel();
+            ViewData["orderID"] = orderID;
 
+            string connectionString = "Server=tcp:restaurantdatabaseserver2.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string connectionString = "Server=tcp:restaurantdatabaseserver2.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                connection.Open();
+                string sql = "SELECT menuitem.ItemName, orderitem.OrderQuantity, menuitem.ItemPrice " +
+                             "FROM OrderItems orderitem " +
+                             "INNER JOIN MenuItems menuitem ON orderitem.ItemID = menuitem.ItemID " +
+                             "WHERE orderitem.OrderID = @orderID;";
 
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(sql, connection))
                 {
-                    connection.Open();
-                    string sql = "SELECT menuitem.ItemName, orderitem.OrderQuantity, menuitem.ItemPrice \r\nFROM OrderItems orderitem\r\nINNER JOIN MenuItems menuitem ON orderitem.ItemID = menuitem.ItemID\r\nWHERE orderitem.OrderID = 2;";
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    command.Parameters.AddWithValue("@orderID", orderID);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                BillDetails billDetails = new BillDetails();
-
-
-                                billDetails.itemName = "" + reader.GetString(0);
-                                billDetails.itemQuantity = "" + reader.GetDecimal(1);
-                                billDetails.itemPrice = "" + reader.GetDecimal(2);
-                                
-
-                                model.ListBillDetails.Add(billDetails);
-                            }
+                            BillDetails billDetails = new BillDetails();
+                            billDetails.itemName = reader.GetString(0);
+                            billDetails.itemQuantity = reader.GetDecimal(1).ToString();
+                            billDetails.itemPrice = reader.GetDecimal(2).ToString();
+                            model.ListBillDetails.Add(billDetails);
                         }
                     }
                 }
