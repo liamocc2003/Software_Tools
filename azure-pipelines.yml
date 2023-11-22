@@ -36,4 +36,14 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-environment: Deployment
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'restaurantdatabaseserver2.database.windows.net'
+    appType: webApp
+    appName: 'Till System'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
