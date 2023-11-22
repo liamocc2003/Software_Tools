@@ -66,6 +66,10 @@ INSERT INTO Pins (PinID, Role) VALUES (711, 'Staff');
 INSERT INTO Orders (OrderID, OrderTableNo, OrderDate, OrderPrice, OrderStatus) VALUES (1, 4, '2023-01-01', 25.00, 'A');
 INSERT INTO Orders (OrderID, OrderTableNo, OrderDate, OrderPrice, OrderStatus) VALUES (2, 6, '2023-05-01', 24.00, 'U');
 INSERT INTO Orders (OrderID, OrderTableNo, OrderDate, OrderPrice, OrderStatus) VALUES (3, 12, '2023-02-01', 23.00, 'A');
+INSERT INTO Orders (OrderID, OrderTableNo, OrderDate, OrderPrice, OrderStatus) VALUES (4, 3, '2023-02-01', 23.00, 'A');
+INSERT INTO Orders (OrderID, OrderTableNo, OrderDate, OrderPrice, OrderStatus) VALUES (5, 2, '2023-02-01', 23.00, 'A');
+INSERT INTO Orders (OrderID, OrderTableNo, OrderDate, OrderPrice, OrderStatus) VALUES (6, 7, '2023-02-01', 23.00, 'A');
+
 
 --Insert test data into MenuItems
 INSERT INTO MenuItems (ItemID, ItemType, ItemName, ItemDescription, ItemPrice) VALUES (1, 'F', 'Spaghetti', 'Tomato pasta dish', 14.00);
@@ -107,3 +111,14 @@ INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (2, 3, 3);
 INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (2, 21, 3);
 INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (3, 6, 8);
 INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (3, 7, 2);
+INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (4, 3, 2);
+INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (4, 5, 1);
+INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (4, 7, 3);
+INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (5, 9, 3);
+INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (5, 2, 3);
+INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (5, 5, 8);
+INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (6, 2, 2);
+INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (6, 1, 2);
+INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (6, 12, 1);
+INSERT INTO OrderItems (OrderID, ItemID, OrderQuantity) VALUES (6, 20, 3);
+
