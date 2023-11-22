@@ -31,7 +31,7 @@
                     </ul>
                     <ul class="navbar-nav left-align">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Logout</a>
+                            <button type="button" class="btn btn-danger" id="logoutBtn">Log Out</button>
                         </li>
                     </ul>
                 </div>
@@ -49,3 +49,64 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script>
+
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+        showConfirmationAlert('Are you sure you want to log out?', function () {
+            window.location.href = '/Home/Index';
+        });
+    });
+
+    function showConfirmationAlert(message, yesCallback) {
+        var alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-dismissible alert-warning';
+        alertDiv.style.position = 'fixed';
+        alertDiv.style.left = '50%';
+        alertDiv.style.top = '50%';
+        alertDiv.style.transform = 'translate(-50%, -50%)';
+        alertDiv.style.zIndex = '1000';
+
+        var closeButton = document.createElement('button');
+        closeButton.type = 'button';
+        closeButton.className = 'btn-close';
+        closeButton.setAttribute('data-bs-dismiss', 'alert');
+
+        var heading = document.createElement('h4');
+        heading.className = 'alert-heading';
+        heading.textContent = 'Heads up!';
+
+        var paragraph = document.createElement('p');
+        paragraph.className = 'mb-0';
+        paragraph.textContent = message;
+
+        var yesButton = document.createElement('button');
+        yesButton.type = 'button';
+        yesButton.className = 'btn btn-primary btn-lg';
+        yesButton.textContent = 'Yes';
+
+        yesButton.addEventListener('click', function () {
+            yesCallback();
+            alertDiv.remove();
+        });
+
+        var noButton = document.createElement('button');
+        noButton.type = 'button';
+        noButton.className = 'btn btn-primary btn-lg';
+        noButton.textContent = 'No';
+
+        noButton.addEventListener('click', function () {
+            alertDiv.remove();
+        });
+
+        alertDiv.appendChild(closeButton);
+        alertDiv.appendChild(heading);
+        alertDiv.appendChild(paragraph);
+        alertDiv.appendChild(yesButton);
+        alertDiv.appendChild(noButton);
+
+        document.body.appendChild(alertDiv);
+    }
+
+
+</script>
