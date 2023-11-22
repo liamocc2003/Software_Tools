@@ -106,11 +106,8 @@ namespace test.Controllers
                 }
                 connection.Close();
             }
-
             return nextOrderID;
         }
-
-
     }
 }
 
