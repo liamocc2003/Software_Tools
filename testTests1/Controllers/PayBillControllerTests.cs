@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using test.Models;
+using System.Data.SqlClient;
+using Xunit;
 
 namespace test.Controllers.Tests
 {
@@ -25,48 +27,58 @@ namespace test.Controllers.Tests
             Assert.IsTrue(true, "True");
         }
 
-        // Test Cases for PayBill Action
-
-        // Test Case 1: Verify that the action retrieves the correct item names, quantities, and prices for a given order ID.
-        /*
-        [Fact]
+        [TestMethod()]
         public void PayBill_ShouldRetrieveCorrectOrderDetails()
         {
-        // Arrange
-        var expectedData = new List<OrderDetails> {
-            new OrderDetails { itemName = "Pizza", orderItemQuantity = "2", itemPrice = "15.00" },
-        };
-        var mockDb = new Mock<IDatabase>(); 
-        mockDb.Setup(db => db.Query()).Returns(expectedData);
+            // Arrange
+            var controller = new PayBillController();
+            string orderId = "1"; // Replace with a real order ID that exists in the database
 
-        var controller = new PayBillController(mockDb.Object);
+            // Act
+            var actionResult = controller.PayBill(orderId);
 
-        // Act
-        var result = controller.PayBill();
-
-        // Assert
-        var viewResult = Assert.IsType<ViewResult>(result);
-        var model = Assert.IsAssignableFrom<PayBillModel>(viewResult.Model);
-        Assert.Equal(expectedData, model.ListOrderDetails);
-    }
-
-
-*/
-        // Test Case 2: Check the response when the database connection fails.
-        /*
-            [Fact]
-            public void PayBill_ShouldHandleDatabaseConnectionFailure()
+            // Assuming the action result is a ViewResult with a model of PayBillModel
+            var viewResult = actionResult as ViewResult;
+            if (viewResult == null)
             {
-                // Arrange
-                var mockDb = new Mock<IDatabase>();
-                mockDb.Setup(db => db.Query()).Throws(new SqlException());
-                var controller = new PayBillController(mockDb.Object);
-
-                // Act & Assert
-                var exception = Record.Exception(() => controller.PayBill());
-                Assert.Null(exception); 
+                throw new InvalidOperationException("Expected a ViewResult.");
             }
-        */
+
+            var model = viewResult.Model as PayBillModel;
+            if (model == null)
+            {
+                throw new InvalidOperationException("Expected a PayBillModel as the model of the ViewResult.");
+            }
+
+            var result = model.ListBillDetails;
+
+            // Expected data to be retrieved from the database
+            var expectedData = new List<BillDetails> {
+        new BillDetails { itemName = "Pizza", itemQuantity = "2", itemPrice = "15.00" },
+        // Add more expected items here
+    };
+
+            // Further comparisons for each item
+            for (int i = 0; i < expectedData.Count; i++)
+            {
+                if (expectedData[i].itemName != result[i].itemName)
+                {
+                    throw new InvalidOperationException($"Expected item name {expectedData[i].itemName}, but got {result[i].itemName}");
+                }
+
+                if (expectedData[i].itemQuantity != result[i].itemQuantity)
+                {
+                    throw new InvalidOperationException($"Expected item quantity {expectedData[i].itemQuantity}, but got {result[i].itemQuantity}");
+                }
+
+                if (expectedData[i].itemPrice != result[i].itemPrice)
+                {
+                    throw new InvalidOperationException($"Expected item price {expectedData[i].itemPrice}, but got {result[i].itemPrice}");
+                }
+            }
+        }
+
+        
 
         // Test Case 3: Confirm behavior when no items are associated with an order ID.
         /*
