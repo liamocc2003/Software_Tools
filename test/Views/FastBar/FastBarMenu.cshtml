@@ -8,14 +8,12 @@
 
 <div class="sellables-container">
     <div class="sellables">
-        <div class="categories">
-            <a class="category active" href="#">Beverages</a>
-            <a class="category" href="#">Non-Alcoholic</a>
-            <a class="category" href="#">Lunch Menu</a>
-            <a class="category" href="#">Dinner Menu</a>
-            <a class="category" href="#">Bar Snacks</a>
-            <a class="category" href="#">Deals</a>
-            <!-- Other categories -->
+        <div class="categories ordersMenuSelection">
+            <form action="/FastBar/FastBarMenu" method="post">
+                <button type="submit" class="category">Beverages</button>
+                <button type="submit" class="category">Dinner</button>
+                <button type="submit" class="category">Dessert</button>
+            </form>
         </div>
         <div class="item-group-wrapper">
             <div class="item-group">
@@ -50,94 +48,104 @@
             <div class="pay-button">
                 <a href="#" id="createOrderButton">Create Order</a>
             </div>
-            <div id="total-price">Total: €0.00</div>
+            <div id="total-price" class="total">Total: €0.00</div>
+            <p class="error-message"></p>
         </div>
     </div>
 </div>
 
 <script>
-    const productsDiv = document.querySelector(".products");
-    const createOrderButton = document.getElementById("createOrderButton");
+    document.addEventListener("DOMContentLoaded", function () {
+        const productsDiv = document.querySelector(".products");
+        const createOrderButton = document.getElementById("createOrderButton");
 
-    let totalPrice = 0;
-    let errorMessageDisplayed = false;
+        let totalPrice = 0;
+        let errorMessageDisplayed = false;
 
-    createOrderButton.addEventListener("click", (event) => {
-        event.preventDefault();
-
-        if (totalPrice > 0) {
-            createOrder();
-        } else if (!errorMessageDisplayed) {
-            displayErrorMessage("No items selected for the order.");
-            errorMessageDisplayed = true;
-        }
-    });
-
-    const itemButtons = document.querySelectorAll(".item");
-    itemButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
+        createOrderButton.addEventListener("click", (event) => {
             event.preventDefault();
 
-            const itemName = button.getAttribute("data-item");
-            const itemPrice = parseFloat(button.getAttribute("data-price"));
+            if (totalPrice > 0) {
+                createOrder();
+            } else if (!errorMessageDisplayed) {
+                displayErrorMessage("No items selected for the order.");
+                errorMessageDisplayed = true;
+            }
+        });
 
-            const selectedProduct = document.createElement("div");
-            selectedProduct.className = "product-bar selected";
-            selectedProduct.innerHTML = `
+        const itemButtons = document.querySelectorAll(".item");
+        itemButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+
+                const itemName = button.getAttribute("data-item");
+                const itemPrice = parseFloat(button.getAttribute("data-price"));
+
+                const selectedProduct = document.createElement("div");
+                selectedProduct.className = "product-bar selected";
+                selectedProduct.innerHTML = `
                     <span>${itemName}</span>
                     <span>€${itemPrice.toFixed(2)}</span>
                 `;
 
-            productsDiv.appendChild(selectedProduct);
+                productsDiv.appendChild(selectedProduct);
 
-            totalPrice += itemPrice;
-            updateTotalPrice();
+                totalPrice += itemPrice;
+                updateTotalPrice();
+            });
         });
-    });
 
-    function updateTotalPrice() {
-        const totalElement = document.getElementById("total-price");
-        totalElement.textContent = `Total: €${totalPrice.toFixed(2)}`;
-    }
+        function updateTotalPrice() {
+            const totalElement = document.getElementById("total-price");
+            totalElement.textContent = `Total: €${totalPrice.toFixed(2)}`;
+        }
 
-    function createOrder() {
-        const customerName = document.querySelector(".customer input").value;
-        const selectedItems = getSelectedItems();
+        function createOrder() {
+            // Assuming you have an input field with the class 'customer'
+            const customerName = document.querySelector(".customer input").value;
+            const selectedItems = getSelectedItems();
 
-        fetch('/FastBar/CreateOrder', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                selectedItems: selectedItems,
-                customerName: customerName,
-            }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
+            fetch('/FastBar/CreateOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    selectedItems: selectedItems,
+                    customerName: customerName,
+                }),
             })
-            .catch((error) => {
-                console.error('Error:', error);
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function getSelectedItems() {
+            const selectedItems = [];
+
+            const productBars = document.querySelectorAll(".product-bar");
+            productBars.forEach((productBar) => {
+                const itemName = productBar.querySelector("span:first-child").textContent;
+                const itemPrice = parseFloat(productBar.querySelector("span:last-child").textContent.replace("€", ""));
+
+                selectedItems.push({
+                    itemName: itemName,
+                    itemPrice: itemPrice,
+                });
             });
-    }
 
-    function getSelectedItems() {
-        const selectedItems = [];
+            return selectedItems;
+        }
 
-        const productBars = document.querySelectorAll(".product-bar");
-        productBars.forEach((productBar) => {
-            const itemName = productBar.querySelector("span:first-child").textContent;
-            const itemPrice = parseFloat(productBar.querySelector("span:last-child").textContent.replace("€", ""));
-
-            selectedItems.push({
-                itemName: itemName,
-                itemPrice: itemPrice,
-            });
-        });
-
-        return selectedItems;
-    }
-
+        function displayErrorMessage(message) {
+            // Assuming you have an element with the class 'error-message'
+            const errorMessageElement = document.querySelector(".error-message");
+            errorMessageElement.textContent = message;
+        }
+    });
 </script>
+

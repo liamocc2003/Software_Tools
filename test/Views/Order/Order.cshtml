@@ -27,41 +27,70 @@
                 <td>55.00</td>
                 <td>Unpaid</td>
             </tr>
-            <tr class="table-active">
-                <th scope="row">2</th>
-                <td>7</td>
-                <td>16:49:00</td>
-                <td>32.50</td>
-                <td>Paid</td>
-            </tr>
-            <tr class="table-active">
-                <th scope="row">3</th>
-                <td>1</td>
-                <td>17:00:00</td>
-                <td>15.75</td>
-                <td>Unpaid</td>
-            </tr>
-            <tr class="table-active">
-                <th scope="row">4</th>
-                <td>4</td>
-                <td>17:05:00</td>
-                <td>109.45</td>
-                <td>Unpaid</td>
-            </tr>
-            <tr class="table-active">
-                <th scope="row">5</th>
-                <td>8</td>
-                <td>17:05:00</td>
-                <td>109.45</td>
-                <td>Unpaid</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="btm-btns">
-        <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="PayBill" asp-action="PayBill">Pay Bill</a></button>
-        <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="EditOrders" asp-action="EditOrders">Edit Order</a></button>
-        <button type="button" class="btn btn-primary btn-lg">Cancel Order</button>
-        <button type="button" class="btn btn-primary btn-lg">Log Out</button>
-    </div>
-}
+        }
+    </tbody>
+</table>
+<div class="btm-btns">
+    <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="PayBill" asp-action="PayBill">Pay Bill</a></button>
+    <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="EditOrders" asp-action="EditOrders">Edit Order</a></button>
+    <button type="button" class="btn btn-primary btn-lg" id="cancelOrderBtn">Cancel Order</button>
+</div>
+
+<script>
+    document.getElementById('cancelOrderBtn').addEventListener('click', function () {
+        showConfirmationAlert('Are you sure you want to cancel this order?', function () {
+            console.log('Order canceled');
+        });
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+        showConfirmationAlert('Are you sure you want to log out?', function () {
+            window.location.href = '/Home/Index'; 
+        });
+    });
+
+    function showConfirmationAlert(message, yesCallback) {
+        var alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-dismissible alert-warning';
+
+        var closeButton = document.createElement('button');
+        closeButton.type = 'button';
+        closeButton.className = 'btn-close';
+        closeButton.setAttribute('data-bs-dismiss', 'alert');
+
+        var heading = document.createElement('h4');
+        heading.className = 'alert-heading';
+        heading.textContent = 'Heads up!';
+
+        var paragraph = document.createElement('p');
+        paragraph.className = 'mb-0';
+        paragraph.textContent = message;
+
+        var yesButton = document.createElement('button');
+        yesButton.type = 'button';
+        yesButton.className = 'btn btn-warning';
+        yesButton.textContent = 'Yes';
+
+        yesButton.addEventListener('click', function () {
+            yesCallback();
+            alertDiv.remove();
+        });
+
+        var noButton = document.createElement('button');
+        noButton.type = 'button';
+        noButton.className = 'btn btn-secondary';
+        noButton.textContent = 'No';
+
+        noButton.addEventListener('click', function () {
+            alertDiv.remove();
+        });
+
+        alertDiv.appendChild(closeButton);
+        alertDiv.appendChild(heading);
+        alertDiv.appendChild(paragraph);
+        alertDiv.appendChild(yesButton);
+        alertDiv.appendChild(noButton);
+
+        document.body.appendChild(alertDiv);
+    }
+</script>
