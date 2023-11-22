@@ -17,7 +17,7 @@ namespace test.Controllers
             {
                 connection.Open();
                 //Select Orders
-                string sql1 = "SELECT orders.OrderID, orders.OrderTableNo, orders.OrderDate, orders.OrderPrice, orders.OrderStatus FROM Orders orders;";
+                string sql1 = "SELECT orders.OrderID, orders.OrderTableNo, orders.OrderDate, orders.OrderPrice, orders.OrderStatus FROM Orders orders WHERE orders.OrderStatus = 'A';";
 
                 using (SqlCommand command = new SqlCommand(sql1, connection))
                 {

@@ -1,38 +1,52 @@
 ﻿@model OrderModel
 
-@{
-    ViewData["Title"] = "EditOrders";
-}
-<h1>View All Orders</h1>
-   
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">OrderID</th>
-            <th scope="col">Table No.</th>
-            <th scope="col">Order Time</th>
-            <th scope="col">Order Price</th>
-            <th scope="col">Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.listViewOrderDetails)
-        {
-            <tr class="table-active">
-                <th scope="row">@item.orderID</th>
-                <td>@item.orderTableNo</td>
-                <td>@item.orderDate</td>
-                <td>@item.orderPrice</td>
-                <td>@item.orderStatus</td>
-            </tr>
-        }
-    </tbody>
-</table>
-<div class="btm-btns">
-    <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="PayBill" asp-action="PayBill">Pay Bill</a></button>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<br>
+<div class="card text-white bg-primary col-12 align-items-center">
+    <div class="row g-0 w-100 p-3">
+        <div class="card-header"><h1>Orders</h1></div>
+        <div class="card-body w-100 p-0 d-flex flex-column align-items-center">
+            <div class="table-container" style="height:50vh; background-color:lightgrey; overflow-y: auto; width:100%; border-radius:.375rem">
+                <table class="table table-hover">
+                    <thead style="position: sticky; top: 0;">
+                        <tr>
+                            <th scope="col">OrderID</th>
+                            <th scope="col">Table No.</th>
+                            <th scope="col">Order Time</th>
+                            <th scope="col">Order Price</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.listViewOrderDetails)
+                        {
+                            <tr class="table-active" onclick="selectRow(this)">
+                                <th scope="row">@item.orderID</th>
+                                <td>@item.orderTableNo</td>
+                                <td>@item.orderDate</td>
+                                <td>@item.orderPrice</td>
+                                <td>@item.orderStatus</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+<div class="btm-btns d-flex align-content-center justify-content-around">
+    <button class="btn btn-success btn-lg">Order ID:</button>
+    <input type="text" class="form-control" id="selectedOrderIdTextBox" readonly
+           style="display: inline-block; width: 100px; margin-right: 10px;
+              background-color:#20bc9c; color:white; font-size:23px; height: fit-content;">
+    <button type="button" class="btn btn-primary btn-lg" onclick="payBill()">Pay Bill</button>
     <button type="button" class="btn btn-primary btn-lg"><a asp-area="" asp-controller="EditOrders" asp-action="EditOrders">Edit Order</a></button>
     <button type="button" class="btn btn-primary btn-lg" id="cancelOrderBtn">Cancel Order</button>
-    <button type="button" class="btn btn-primary btn-lg" id="logoutBtn">Log Out</button>
 </div>
 
 <script>
@@ -42,54 +56,32 @@
         });
     });
 
-    document.getElementById('logoutBtn').addEventListener('click', function () {
-        showConfirmationAlert('Are you sure you want to log out?', function () {
-            window.location.href = '/Home/Index'; 
-        });
-    });
-
-    function showConfirmationAlert(message, yesCallback) {
-        var alertDiv = document.createElement('div');
-        alertDiv.className = 'alert alert-dismissible alert-warning';
-
-        var closeButton = document.createElement('button');
-        closeButton.type = 'button';
-        closeButton.className = 'btn-close';
-        closeButton.setAttribute('data-bs-dismiss', 'alert');
-
-        var heading = document.createElement('h4');
-        heading.className = 'alert-heading';
-        heading.textContent = 'Heads up!';
-
-        var paragraph = document.createElement('p');
-        paragraph.className = 'mb-0';
-        paragraph.textContent = message;
-
-        var yesButton = document.createElement('button');
-        yesButton.type = 'button';
-        yesButton.className = 'btn btn-warning';
-        yesButton.textContent = 'Yes';
-
-        yesButton.addEventListener('click', function () {
-            yesCallback();
-            alertDiv.remove();
+    // Function to handle row selection
+    function selectRow(row) {
+        // Deselect previous row
+        var selectedRows = document.querySelectorAll('tr.table-selected');
+        selectedRows.forEach(function (selectedRow) {
+            selectedRow.classList.remove('table-selected');
         });
 
-        var noButton = document.createElement('button');
-        noButton.type = 'button';
-        noButton.className = 'btn btn-secondary';
-        noButton.textContent = 'No';
+        // Select the clicked row
+        row.classList.add('table-selected');
 
-        noButton.addEventListener('click', function () {
-            alertDiv.remove();
-        });
+        // Get the selected orderID
+        selectedOrderID = row.querySelector('th').textContent;
 
-        alertDiv.appendChild(closeButton);
-        alertDiv.appendChild(heading);
-        alertDiv.appendChild(paragraph);
-        alertDiv.appendChild(yesButton);
-        alertDiv.appendChild(noButton);
+        //Update the OrderID in the textbox
+        document.getElementById('selectedOrderIdTextBox').value = selectedOrderID;
+    }
 
-        document.body.appendChild(alertDiv);
+    // Function to handle Pay Bill button click
+    function payBill() {
+        if (selectedOrderID) {
+            console.log('Selected OrderID:', selectedOrderID);
+            // Pass the selected orderID to the PayBill page
+            window.location.href = '/PayBill/PayBill?orderID=' + selectedOrderID;
+        } else {
+            alert('Please select an order to pay.');
+        }
     }
 </script>
