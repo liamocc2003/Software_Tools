@@ -4,7 +4,6 @@ IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'fk_OrderItems_OrderID')
 IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'fk_OrderItems_ItemID')
     ALTER TABLE OrderItems DROP CONSTRAINT fk_OrderItems_ItemID;
 
-
 -- Drop tables if they exist
 IF OBJECT_ID('dbo.MenuItems') IS NOT NULL
     DROP TABLE dbo.MenuItems;
@@ -12,6 +11,8 @@ IF OBJECT_ID('dbo.Orders') IS NOT NULL
     DROP TABLE dbo.Orders;
 IF OBJECT_ID('dbo.OrderItems') IS NOT NULL
     DROP TABLE dbo.OrderItems;
+IF OBJECT_ID('dbo.Pins') IS NOT NULL
+    DROP TABLE dbo.Pins;
 
 --Orders table
 CREATE TABLE Orders (
@@ -41,7 +42,26 @@ CREATE TABLE OrderItems (
     CONSTRAINT fk_OrderItems_ItemID FOREIGN KEY (ItemID) REFERENCES MenuItems(ItemID)
 );
 
+CREATE TABLE Pins (
+    PinID INT NOT NULL,
+    Role varchar(10) NOT NULL,
+    PRIMARY KEY (PinID),
+    CHECK (PinID >= 100 AND PinID <= 999)
+);
+
 --Test Data
+
+INSERT INTO Pins (PinID, Role) VALUES (123, 'Admin');
+INSERT INTO Pins (PinID, Role) VALUES (142, 'Staff');
+INSERT INTO Pins (PinID, Role) VALUES (696, 'Staff');
+INSERT INTO Pins (PinID, Role) VALUES (777, 'Staff');
+INSERT INTO Pins (PinID, Role) VALUES (249, 'Staff');
+INSERT INTO Pins (PinID, Role) VALUES (666, 'Staff');
+INSERT INTO Pins (PinID, Role) VALUES (711, 'Staff');
+
+
+
+
 --Insert test data into Orders
 INSERT INTO Orders (OrderID, OrderTableNo, OrderDate, OrderPrice, OrderStatus) VALUES (1, 4, '2023-01-01', 25.00, 'A');
 INSERT INTO Orders (OrderID, OrderTableNo, OrderDate, OrderPrice, OrderStatus) VALUES (2, 6, '2023-05-01', 24.00, 'U');

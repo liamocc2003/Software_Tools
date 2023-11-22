@@ -31,7 +31,6 @@ namespace test.Controllers
         [HttpPost]
         public IActionResult VerifyLogin(string searchInput)
         {
-            return RedirectToAction("FastBarMenu", "FastBar");
             int enteredPin;
             if (int.TryParse(searchInput, out enteredPin))
             {
