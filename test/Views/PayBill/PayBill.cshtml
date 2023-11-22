@@ -26,12 +26,12 @@
                                 <tbody>
                                     @foreach (var item in Model.ListBillDetails)
                                     {
-                                        totalPrice = ((Convert.ToDecimal(item.itemPrice)) * (Convert.ToDecimal(item.itemQuantity)));
-                                        <tr>
-                                            <td>@item.itemName</td>
-                                            <td>@item.itemQuantity</td>
-                                            <td>@item.itemPrice</td>
-                                        </tr>
+                                        totalPrice += ((Convert.ToDecimal(item.itemPrice)) * (Convert.ToDecimal(item.itemQuantity)));
+                                    <tr>
+                                        <td>@item.itemName</td>
+                                        <td>@item.itemQuantity</td>
+                                        <td>@item.itemPrice</td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>
