@@ -8,158 +8,126 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using test.Models;
 using System.Data.SqlClient;
-using Xunit;
 
 namespace test.Controllers.Tests
 {
-    [TestClass()]
-    public class PayBillControllerTests
+
+        [TestClass()]
+        public class PayBillControllerTest
+        {
+
+            [TestMethod()]
+            public void PayBill_ShouldRetrieveCorrectOrderDetails()
+            {
+                // Arrange
+                var controller = new PayBillController();
+                string validOrderId = "1"; // Replace with a valid order ID from your test data
+
+                // Act
+                var actionResult = controller.PayBill(validOrderId);
+
+                // Assert ViewResult
+                var viewResult = actionResult as ViewResult;
+                if (viewResult == null)
+                {
+                    throw new InvalidOperationException("Expected action result to be of type ViewResult.");
+                }
+
+                // Assert Model
+                var model = viewResult.Model as PayBillModel;
+                if (model == null)
+                {
+                    throw new InvalidOperationException("Expected the model of the ViewResult to be of type PayBillModel.");
+                }
+
+                // Assert Bill Details
+                // You need to know the expected bill details for the given orderID from your test data
+                var expectedBillDetails = new List<BillDetails>
     {
-        [TestMethod()]
-        public void PayBillTest()
-        {
-            Assert.IsTrue(true, "True");
-        }
-
-        [TestMethod()]
-        public void StatusPaidTest()
-        {
-            Assert.IsTrue(true, "True");
-        }
-
-        [TestMethod()]
-        public void PayBill_ShouldRetrieveCorrectOrderDetails()
-        {
-            // Arrange
-            var controller = new PayBillController();
-            string orderId = "1"; // Replace with a real order ID that exists in the database
-
-            // Act
-            var actionResult = controller.PayBill(orderId);
-
-            // Assuming the action result is a ViewResult with a model of PayBillModel
-            var viewResult = actionResult as ViewResult;
-            if (viewResult == null)
-            {
-                throw new InvalidOperationException("Expected a ViewResult.");
-            }
-
-            var model = viewResult.Model as PayBillModel;
-            if (model == null)
-            {
-                throw new InvalidOperationException("Expected a PayBillModel as the model of the ViewResult.");
-            }
-
-            var result = model.ListBillDetails;
-
-            // Expected data to be retrieved from the database
-            var expectedData = new List<BillDetails> {
-        new BillDetails { itemName = "Pizza", itemQuantity = "2", itemPrice = "15.00" },
-        // Add more expected items here
+        new BillDetails { itemName = "Spaghetti", itemQuantity = "2", itemPrice = "14.00" },
+        // Add more expected items here based on your test data
     };
 
-            // Further comparisons for each item
-            for (int i = 0; i < expectedData.Count; i++)
-            {
-                if (expectedData[i].itemName != result[i].itemName)
+                if (model.ListBillDetails.Count != expectedBillDetails.Count)
                 {
-                    throw new InvalidOperationException($"Expected item name {expectedData[i].itemName}, but got {result[i].itemName}");
+                    throw new InvalidOperationException($"Expected count {expectedBillDetails.Count}, but got {model.ListBillDetails.Count}");
                 }
 
-                if (expectedData[i].itemQuantity != result[i].itemQuantity)
+                for (int i = 0; i < expectedBillDetails.Count; i++)
                 {
-                    throw new InvalidOperationException($"Expected item quantity {expectedData[i].itemQuantity}, but got {result[i].itemQuantity}");
-                }
+                    if (model.ListBillDetails[i].itemName != expectedBillDetails[i].itemName)
+                    {
+                        throw new InvalidOperationException($"Expected item name {expectedBillDetails[i].itemName}, but got {model.ListBillDetails[i].itemName}");
+                    }
 
-                if (expectedData[i].itemPrice != result[i].itemPrice)
-                {
-                    throw new InvalidOperationException($"Expected item price {expectedData[i].itemPrice}, but got {result[i].itemPrice}");
+                    if (model.ListBillDetails[i].itemQuantity != expectedBillDetails[i].itemQuantity)
+                    {
+                        throw new InvalidOperationException($"Expected item quantity {expectedBillDetails[i].itemQuantity}, but got {model.ListBillDetails[i].itemQuantity}");
+                    }
+
+                    if (model.ListBillDetails[i].itemPrice != expectedBillDetails[i].itemPrice)
+                    {
+                        throw new InvalidOperationException($"Expected item price {expectedBillDetails[i].itemPrice}, but got {model.ListBillDetails[i].itemPrice}");
+                    }
                 }
             }
+
+            string connectionString = "Server=tcp:restaurantdatabaseserver2.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; // Initialize with actual connection string
+
+            [TestMethod()]
+            public void ConnectToDatabase()
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    try
+                    {
+                        connection.Open();
+                        // Perform some operations
+                    }
+                    catch (SqlException)
+                    {
+                        throw new InvalidOperationException("Failed to connect to the database. Please check connection string.");
+                    }
+                }
+            }
+
+            [TestMethod()]
+            public void StatusPaid_UpdatesOrderStatus()
+            {
+                // Arrange
+                var controller = new PayBillController();
+                int orderId = 1; // Replace with an orderId known to be in the database
+
+                // Act
+                controller.StatusPaid(orderId);
+
+                // Assert
+                string connectionString = "Server=tcp:restaurantdatabaseserver2.database.windows.net,1433;Initial Catalog=restaurantdb;Persist Security Info=False;User ID=adminBilly;Password=Password1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                string sql = "SELECT OrderStatus FROM Orders WHERE OrderID = @OrderId";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@OrderId", orderId);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (!reader.Read())
+                            {
+                                throw new InvalidOperationException("Order not found.");
+                            }
+
+                            string orderStatus = reader.GetString(0);
+                            if (orderStatus != "U")
+                            {
+                                throw new InvalidOperationException($"Expected order status 'U', but got {orderStatus}");
+                            }
+                        }
+                    }
+                }
+            }
+
         }
-
-        
-
-        // Test Case 3: Confirm behavior when no items are associated with an order ID.
-        /*
-            [Fact]
-            public void PayBill_ShouldReturnEmptyModelWhenNoOrderDetails()
-            {
-                // Arrange
-                var mockDb = new Mock<IDatabase>();
-                mockDb.Setup(db => db.Query()).Returns(new List<OrderDetails>()); // Return an empty list
-                var controller = new PayBillController(mockDb.Object);
-
-                // Act
-                var result = controller.PayBill();
-
-                // Assert
-                var viewResult = Assert.IsType<ViewResult>(result);
-                var model = Assert.IsAssignableFrom<PayBillModel>(viewResult.Model);
-                Assert.Empty(model.ListOrderDetails); 
-            }
-        */
-
-
-
-        // Test Cases for StatusPaid Action
-
-        // Test Case 4: Verify that the order status is updated to 'U' when a valid order ID is provided.
-        /*
-        [Fact]
-        public void StatusPaid_ShouldUpdateStatusToU_WithValidOrderId()
-        {
-        // Arrange
-        var validOrderId = 1; // Assume this is a valid order ID
-        var mockDb = new Mock<IDatabase>(); 
-        mockDb.Setup(db => db.Execute()).Returns(1); 
-
-        var controller = new PayBillController(mockDb.Object);
-
-        // Act
-        var result = controller.StatusPaid(validOrderId);
-
-        // Assert
-        
     }
-*/
-
-        // Test Case 5: Check the behavior when an invalid order ID is provided.
-        /*
-            [Fact]
-            public void StatusPaid_ShouldIndicateUnsuccessfulPayment_WithInvalidOrderId()
-            {
-                // Arrange
-                var invalidOrderId = -1; // Invalid OrderID
-                var mockDb = new Mock<IDatabase>();
-                mockDb.Setup(db => db.Execute()).Returns(0); // Simulate zero rows affected (failure)
-
-                var controller = new PayBillController(mockDb.Object);
-
-                // Act
-                var result = controller.StatusPaid(invalidOrderId);
-
-                // Assert
-                mockDb.Verify(db => db.Execute(), Times.Once());
-            }
-        */
-
-        // Test Case 6: Test the response when the database connection fails.
-        /*
-            [Fact]
-            public void StatusPaid_ShouldHandleDatabaseConnectionFailure()
-            {
-                // Arrange
-                var mockDb = new Mock<IDatabase>();
-                mockDb.Setup(db => db.Execute()).Throws(new Exception()); // Simulate a database failure
-
-                var controller = new PayBillController(mockDb.Object);
-
-                // Act & Assert
-                var exception = Record.Exception(() => controller.StatusPaid(1));
-                Assert.Null(exception); // No exception should be thrown
-            }
-        */
-    }
-}
-
+   
